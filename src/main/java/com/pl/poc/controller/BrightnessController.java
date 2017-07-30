@@ -1,6 +1,6 @@
 package com.pl.poc.controller;
 
-import com.pl.poc.algorithm.ImageAlgorithms;
+import com.pl.poc.algorithm.BrightnessAlgorithms;
 import com.pl.poc.model.ImagesModel;
 import com.pl.poc.view.BrightnessSettingsView;
 import com.pl.poc.view.MainView;
@@ -8,7 +8,6 @@ import com.pl.poc.view.MainView;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import java.awt.image.BufferedImage;
 
 /**
  * Created by Rafał on 2017-07-15.
@@ -27,7 +26,7 @@ public class BrightnessController implements ChangeListener {
         bsView.getSpiner().setValue(slider.getValue());
         try
         {
-            ImagesModel imagesModel = ImageAlgorithms.execute(mView.getImagesModel(), slider.getValue());
+            ImagesModel imagesModel = BrightnessAlgorithms.execute(mView.getImagesModel(), slider.getValue());
             mView.setImagesModel(imagesModel);
             mView.repaint();
         }

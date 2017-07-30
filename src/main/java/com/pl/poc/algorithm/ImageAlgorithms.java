@@ -16,25 +16,4 @@ public class ImageAlgorithms {
         if (v >= max) return max;
         return v;
     }
-
-    // Funkcja zmieniajaca jasnosc koloru rgb o wartosc db
-    public static int changeBrightness(int rgb, int db)
-    {
-        // Rozbior koloru na skladowe R, G, B
-        int r = jred(rgb);
-        int g = jgreen(rgb);
-        int b = jblue(rgb);
-
-        // Modyfikacja skladowych razem z przypilnowaniem zakresow 0-255
-        r = clamp(r + db, 0, 255);
-        g = clamp(g + db, 0, 255);
-        b = clamp(b + db, 0, 255);
-
-        // Zlozenie skladowych R, G, B w jeden kolor i zwrocenie jego wartosci
-        return jrgb(r, g, b);
-    }
-
-    public static int changeContrast(int rgb, int dc) {return 0;}
-    public static int rgb2hsl(int rgb) {return 0;}
-    public static int hsl2rgb(int hsl) {return 0;}
 }
