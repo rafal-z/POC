@@ -1,6 +1,7 @@
 package com.pl.poc.view;
 
 import com.pl.poc.controller.ReadImageController;
+import com.pl.poc.controller.ResetImageController;
 import com.pl.poc.model.ImagesModel;
 
 import java.awt.event.ActionEvent;
@@ -58,10 +59,13 @@ public class MainView extends JFrame{
         menuBar.add(menu);
 
         JMenuItem mitem = new JMenuItem("Open");
-
         ReadImageController readImageController = new ReadImageController(this);
         mitem.addActionListener(readImageController);
+        menu.add(mitem);
 
+        mitem = new JMenuItem("Reset Image");
+        ResetImageController resetImageController = new ResetImageController(this);
+        mitem.addActionListener(resetImageController);
         menu.add(mitem);
 
         menu.addSeparator();
