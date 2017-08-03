@@ -15,6 +15,7 @@ public class MainView extends JFrame{
 
     private ImagesModel imagesModel;
     private BrightnessSettingsView brightnessForm;
+    private GaussSettingsView gaussSettingsView;
 
     private JLabel imageLabel;
     private ImageIcon imageIcon;
@@ -93,7 +94,18 @@ public class MainView extends JFrame{
                 brightnessForm.setVisible(true);
             }
         });
+        menu.add(mitem);
 
+        menu = new JMenu("Filters");
+        menuBar.add(menu);
+        mitem = new JMenuItem("Gaussian Blur");
+        mitem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                gaussSettingsView = new GaussSettingsView(MainView.this);
+                gaussSettingsView.pack();
+                gaussSettingsView.setVisible(true);
+            }
+        });
         menu.add(mitem);
 
         imageLabel = new JLabel();

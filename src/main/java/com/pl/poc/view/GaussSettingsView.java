@@ -2,52 +2,44 @@ package com.pl.poc.view;
 
 import com.pl.poc.controller.BrightnessController;
 import com.pl.poc.controller.CancelController;
+import com.pl.poc.controller.GaussController;
 import com.pl.poc.controller.UpdateController;
 
 import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by Rafał on 2017-07-13.
+ * Created by Rafał on 2017-07-30.
  */
-public class BrightnessSettingsView extends JFrame {
+public class GaussSettingsView extends JFrame {
     private MainView mainView;
 
-    private JSlider brightnessSlider;
     private JButton cancelButton;
     private JButton okButton;
+    private JSlider gaussSlider;
     private JSpinner spiner;
 
-    public JSpinner getSpiner() {
-        return spiner;
-    }
-
-    public void setSpiner(JSpinner spiner) {
-        this.spiner = spiner;
-    }
-
-    public BrightnessSettingsView(MainView mainView)
-    {
+    GaussSettingsView(MainView mainView){
         this.mainView = mainView;
         initComponents();
     }
 
     private void initComponents() {
 
-        brightnessSlider = new JSlider();
+        gaussSlider = new JSlider();
         spiner = new JSpinner();
         cancelButton = new JButton();
         okButton = new JButton();
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setTitle("Brightness...");
+        setTitle("Gaussian Blur...");
         setMinimumSize(new Dimension(300, 100));
         setPreferredSize(new Dimension(380, 120));
 
-        brightnessSlider.setMaximum(255);
-        brightnessSlider.setMinimum(-255);
-        brightnessSlider.setValue(0);
-        brightnessSlider.addChangeListener(new BrightnessController(mainView,this));
+        gaussSlider.setMaximum(50);
+        gaussSlider.setMinimum(1);
+        gaussSlider.setValue(1);
+        gaussSlider.addChangeListener(new GaussController(mainView, this));
 
         cancelButton.setText("Anuluj");
         cancelButton.setPreferredSize(new Dimension(125, 25));
@@ -69,7 +61,7 @@ public class BrightnessSettingsView extends JFrame {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createSequentialGroup()
-                                                .addComponent(brightnessSlider, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
+                                                .addComponent(gaussSlider, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
                                                 .addGap(18, 18, 18)
                                                 .addComponent(spiner, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addContainerGap())
@@ -80,7 +72,7 @@ public class BrightnessSettingsView extends JFrame {
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(spiner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(brightnessSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(gaussSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -91,4 +83,11 @@ public class BrightnessSettingsView extends JFrame {
         pack();
     }
 
+    public JSpinner getSpiner() {
+        return spiner;
+    }
+
+    public void setSpiner(JSpinner spiner) {
+        this.spiner = spiner;
+    }
 }
