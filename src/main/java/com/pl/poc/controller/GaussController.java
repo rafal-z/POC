@@ -8,8 +8,6 @@ import com.pl.poc.view.MainView;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * Created by Rafał on 2017-07-30.
@@ -25,7 +23,7 @@ public class GaussController implements ChangeListener {
 
     public void stateChanged(ChangeEvent e) {
         JSlider slider = (JSlider) e.getSource();
-        gsView.getSpiner().setValue(slider.getValue());
+        gsView.getNumberLabel().setText(slider.getValue()+"");
         if (!slider.getValueIsAdjusting()) {
             long startTime = System.currentTimeMillis();
 

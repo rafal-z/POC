@@ -1,6 +1,5 @@
 package com.pl.poc.view;
 
-import com.pl.poc.controller.BrightnessController;
 import com.pl.poc.controller.CancelController;
 import com.pl.poc.controller.GaussController;
 import com.pl.poc.controller.UpdateController;
@@ -17,7 +16,7 @@ public class GaussSettingsView extends JFrame {
     private JButton cancelButton;
     private JButton okButton;
     private JSlider gaussSlider;
-    private JSpinner spiner;
+    private JLabel numberLabel;
 
     GaussSettingsView(MainView mainView){
         this.mainView = mainView;
@@ -27,7 +26,7 @@ public class GaussSettingsView extends JFrame {
     private void initComponents() {
 
         gaussSlider = new JSlider();
-        spiner = new JSpinner();
+        numberLabel = new JLabel("1");
         cancelButton = new JButton();
         okButton = new JButton();
 
@@ -63,7 +62,7 @@ public class GaussSettingsView extends JFrame {
                                         .addGroup(layout.createSequentialGroup()
                                                 .addComponent(gaussSlider, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
                                                 .addGap(18, 18, 18)
-                                                .addComponent(spiner, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addComponent(numberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -71,7 +70,7 @@ public class GaussSettingsView extends JFrame {
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(spiner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(numberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(gaussSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -83,11 +82,11 @@ public class GaussSettingsView extends JFrame {
         pack();
     }
 
-    public JSpinner getSpiner() {
-        return spiner;
+    public JLabel getNumberLabel() {
+        return numberLabel;
     }
 
-    public void setSpiner(JSpinner spiner) {
-        this.spiner = spiner;
+    public void setNumberLabel(JLabel numberLabel) {
+        this.numberLabel = numberLabel;
     }
 }
