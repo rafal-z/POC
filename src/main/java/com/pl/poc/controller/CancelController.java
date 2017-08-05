@@ -21,10 +21,12 @@ public class CancelController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         try
         {
-            mainView.getImagesModel().getSrcImage().copyData(mainView.getImagesModel().getDstImage().getRaster());
-            mainView.getImageIcon().setImage(mainView.getImagesModel().getDstImage());
-            mainView.getImageLabel().setIcon(mainView.getImageIcon());
-            mainView.getImageLabel().repaint();
+            if(mainView.getImagesModel() != null) {
+                mainView.getImagesModel().getSrcImage().copyData(mainView.getImagesModel().getDstImage().getRaster());
+                mainView.getImageIcon().setImage(mainView.getImagesModel().getDstImage());
+                mainView.getImageLabel().setIcon(mainView.getImageIcon());
+                mainView.getImageLabel().repaint();
+            }
 
             currentView.setVisible(false);
             currentView.dispose();

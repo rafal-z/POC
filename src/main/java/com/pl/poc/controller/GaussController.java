@@ -25,15 +25,17 @@ public class GaussController implements ChangeListener {
         JSlider slider = (JSlider) e.getSource();
         gsView.getNumberLabel().setText(slider.getValue()+"");
         if (!slider.getValueIsAdjusting()) {
-            long startTime = System.currentTimeMillis();
+            if(mView.getImagesModel() != null) {
+                long startTime = System.currentTimeMillis();
 
-            ImagesModel model = mView.getImagesModel();
-            model = GaussAlgorithms.execute(model, slider.getValue());
-            mView.setImagesModel(model);
-            mView.repaint();
+                ImagesModel model = mView.getImagesModel();
+                model = GaussAlgorithms.execute(model, slider.getValue());
+                mView.setImagesModel(model);
+                mView.repaint();
 
-            System.out.println("Czas operacji: "+ (double)(System.currentTimeMillis() - startTime)/1000 +"s"
-                    +" - radius: "+ slider.getValue());
+                System.out.println("Czas operacji: " + (double) (System.currentTimeMillis() - startTime) / 1000 + "s"
+                        + " - radius: " + slider.getValue());
+            }
         }
     }
 }
