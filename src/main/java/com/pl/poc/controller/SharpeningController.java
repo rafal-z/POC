@@ -1,6 +1,7 @@
 package com.pl.poc.controller;
 
 import com.pl.poc.algorithm.SharpeningAlgorithms;
+import com.pl.poc.algorithm.Time;
 import com.pl.poc.model.ImagesModel;
 import com.pl.poc.view.MainView;
 import com.pl.poc.view.SharpeningSettingsView;
@@ -31,14 +32,14 @@ public class SharpeningController implements ChangeListener{
 
         if(!slider.getValueIsAdjusting()){
             if(mView.getImagesModel() != null) {
-                long startTime = System.currentTimeMillis();
+                Time.start();
 
                 ImagesModel model = mView.getImagesModel();
                 model = SharpeningAlgorithms.execute(model, unsharp, radius);
                 mView.setImagesModel(model);
                 mView.repaint();
 
-                System.out.println("Czas operacji: " + (double) (System.currentTimeMillis() - startTime) / 1000 + "s");
+                Time.stop();
             }
         }
     }
