@@ -16,6 +16,7 @@ public class MainView extends JFrame{
     private ImagesModel imagesModel;
     private BrightnessSettingsView brightnessForm;
     private GaussSettingsView gaussSettingsView;
+    private SharpeningSettingsView sharpeningSettingsView;
 
     private JLabel imageLabel;
     private ImageIcon imageIcon;
@@ -104,6 +105,16 @@ public class MainView extends JFrame{
                 gaussSettingsView = new GaussSettingsView(MainView.this);
                 gaussSettingsView.pack();
                 gaussSettingsView.setVisible(true);
+            }
+        });
+        menu.add(mitem);
+
+        mitem = new JMenuItem("Unsharp Mask");
+        mitem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                sharpeningSettingsView = new SharpeningSettingsView(MainView.this);
+                sharpeningSettingsView.pack();
+                sharpeningSettingsView.setVisible(true);
             }
         });
         menu.add(mitem);
