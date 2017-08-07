@@ -28,6 +28,12 @@ public class MainView extends JFrame{
         initComponents();
     }
 
+    public void repaint(){
+        imageIcon.setImage(imagesModel.getDstImage());
+        imageLabel.setIcon(imageIcon);
+        imageLabel.repaint();
+    }
+
     public JLabel getImageLabel() {
         return imageLabel;
     }

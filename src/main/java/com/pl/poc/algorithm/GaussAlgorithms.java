@@ -1,7 +1,5 @@
 package com.pl.poc.algorithm;
 
-import com.pl.poc.model.ImagesModel;
-
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,15 +10,16 @@ import java.util.List;
 public class GaussAlgorithms {
     private static List<List<Double>> matrixGauss = new ArrayList<List<Double>>();
 
-    public static ImagesModel execute(ImagesModel imagesModel, int radius){
+    public static BufferedImage execute(BufferedImage srcImage, int radius){
         updateMatrixGauss(radius);
 
         int size = matrixGauss.size();
         double[] matHorizontally = new double[size];
         double[] matVertically = new double[size];
 
-        BufferedImage srcImage = imagesModel.getSrcImage();
-        BufferedImage dstImage = imagesModel.getDstImage();
+//        BufferedImage srcImage = imagesModel.getSrcImage();
+//        BufferedImage dstImage = imagesModel.getDstImage();
+        BufferedImage dstImage = new BufferedImage(srcImage.getWidth(), srcImage.getHeight(), BufferedImage.TYPE_INT_RGB);
 
         for(int i=0; i<size; i++) {
             matHorizontally[i] = matrixGauss.get(size / 2).get(i);
@@ -41,8 +40,9 @@ public class GaussAlgorithms {
                 dstImage.setRGB(x,y,rgb);
             }
         }
-        imagesModel.setDstImage(dstImage);
-        return imagesModel;
+//        imagesModel.setDstImage(dstImage);
+//        return imagesModel;
+        return dstImage;
     }
 
     private static int[] preparatePixelAndSumProduct(int rgb, int[] sum, double[] matrixGauss, int index){
