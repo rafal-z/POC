@@ -1,6 +1,8 @@
 package com.pl.poc.controller;
 
 import com.pl.poc.algorithm.GaussAlgorithms;
+import com.pl.poc.algorithm.Time;
+import com.pl.poc.model.ImagesModel;
 import com.pl.poc.view.GaussSettingsView;
 import com.pl.poc.view.MainView;
 
@@ -25,15 +27,15 @@ public class GaussController implements ChangeListener {
         JSlider slider = (JSlider) e.getSource();
         gsView.getNumberLabel().setText(slider.getValue() + "");
         if (!slider.getValueIsAdjusting() && mView.getImagesModel() != null) {
-            long startTime = System.currentTimeMillis();
+            Time.start();
 
             BufferedImage srcImage = mView.getImagesModel().getSrcImage();
             BufferedImage destImage = GaussAlgorithms.execute(srcImage, slider.getValue());
             mView.getImagesModel().setDstImage(destImage);
             mView.repaint();
 
-            System.out.println("Czas operacji: " + (double) (System.currentTimeMillis() - startTime) / 1000 + "s"
-                    + " - radius: " + slider.getValue());
+                Time.stop();
+            }
         }
     }
 }
