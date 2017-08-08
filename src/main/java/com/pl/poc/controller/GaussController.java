@@ -2,7 +2,6 @@ package com.pl.poc.controller;
 
 import com.pl.poc.algorithm.GaussAlgorithms;
 import com.pl.poc.algorithm.Time;
-import com.pl.poc.model.ImagesModel;
 import com.pl.poc.view.GaussSettingsView;
 import com.pl.poc.view.MainView;
 
@@ -34,8 +33,7 @@ public class GaussController implements ChangeListener {
             mView.getImagesModel().setDstImage(destImage);
             mView.repaint();
 
-                Time.stop();
-            }
+            Time.stop();
         }
     }
 }

@@ -1,7 +1,5 @@
 package com.pl.poc.algorithm;
 
-import com.pl.poc.model.ImagesModel;
-
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;

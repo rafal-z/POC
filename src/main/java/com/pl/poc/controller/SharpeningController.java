@@ -2,6 +2,7 @@ package com.pl.poc.controller;
 
 import com.pl.poc.algorithm.GaussAlgorithms;
 import com.pl.poc.algorithm.SharpeningAlgorithms;
+import com.pl.poc.algorithm.Time;
 import com.pl.poc.view.MainView;
 import com.pl.poc.view.SharpeningSettingsView;
 
@@ -28,7 +29,7 @@ public class SharpeningController implements ChangeListener{
         sharpView.getNumberSharpening().setText(unsharp + "");
 
         if (mView.getImagesModel() != null) {
-            long startTime = System.currentTimeMillis();
+            Time.start();
 
             BufferedImage srcImage = mView.getImagesModel().getSrcImage();
             BufferedImage gaussImage = mView.getImagesModel().getGaussImage();
@@ -40,7 +41,7 @@ public class SharpeningController implements ChangeListener{
             mView.getImagesModel().setDstImage(dstImage);
             mView.repaint();
 
-            System.out.println("Czas operacji: " + (double) (System.currentTimeMillis() - startTime) / 1000 + "s");
+            Time.stop();
         }
     }
 }

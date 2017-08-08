@@ -2,6 +2,7 @@ package com.pl.poc.controller;
 
 import com.pl.poc.algorithm.GaussAlgorithms;
 import com.pl.poc.algorithm.SharpeningAlgorithms;
+import com.pl.poc.algorithm.Time;
 import com.pl.poc.view.MainView;
 import com.pl.poc.view.SharpeningSettingsView;
 
@@ -26,14 +27,16 @@ public class GaussToSharpeningController implements ChangeListener {
         JSlider slider = (JSlider) e.getSource();
         sharpView.getNumberGauss().setText(slider.getValue() + "");
         if (!slider.getValueIsAdjusting() && mView.getImagesModel() != null) {
+            Time.start();
+
             BufferedImage srcImage = mView.getImagesModel().getSrcImage();
             BufferedImage gaussImage = GaussAlgorithms.execute(srcImage, slider.getValue());
             mView.getImagesModel().setGaussImage(gaussImage);
-            System.out.println("1");
-
             BufferedImage dstImage = SharpeningAlgorithms.execute(srcImage, gaussImage, sharpView.getSharpeningSlider().getValue(), slider.getValue());
             mView.getImagesModel().setDstImage(dstImage);
             mView.repaint();
+
+            Time.stop();
         }
     }
 }
