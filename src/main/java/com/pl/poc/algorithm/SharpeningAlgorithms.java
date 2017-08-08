@@ -1,7 +1,5 @@
 package com.pl.poc.algorithm;
 
-import com.pl.poc.model.ImagesModel;
-
 import java.awt.image.BufferedImage;
 
 import static com.pl.poc.algorithm.ImageAlgorithms.*;
@@ -11,36 +9,30 @@ import static com.pl.poc.algorithm.ImageAlgorithms.*;
  */
 public class SharpeningAlgorithms {
 
-    public static ImagesModel execute(ImagesModel model, int sharpeningValue, int radius){
-        model = GaussAlgorithms.execute(model, radius);
-        model = sharpening(model, sharpeningValue);
-        return model;
+    public static BufferedImage execute(BufferedImage srcImage, BufferedImage gaussImage, int sharpeningValue, int radius){
+        return sharpening(srcImage, gaussImage, sharpeningValue);
     }
 
-    public static ImagesModel sharpening(ImagesModel model, int sharpeningValue){
+    public static BufferedImage sharpening(BufferedImage srcImage, BufferedImage gaussImage, int sharpeningValue){
         int[] colors = new int[3];
-        int srcRgb, dstRgb;
+        int srcRgb, gaussRgb;
 
-        BufferedImage srcImage = model.getSrcImage();
-        BufferedImage dstImage = model.getDstImage();
+        BufferedImage dstImage = new BufferedImage(srcImage.getWidth(), srcImage.getHeight(), BufferedImage.TYPE_INT_RGB);
 
         for(int y=0; y<srcImage.getHeight(); y++){
             for(int x=0; x<srcImage.getWidth(); x++){
                 srcRgb = srcImage.getRGB(x, y);
-                dstRgb = dstImage.getRGB(x, y);
-                colors[0] = jred(srcRgb) + (jred(srcRgb) - jred(dstRgb)) * sharpeningValue;
-                colors[1] = jgreen(srcRgb) + (jgreen(srcRgb) - jgreen(dstRgb)) * sharpeningValue;
-                colors[2] = jblue(srcRgb) + (jblue(srcRgb) - jblue(dstRgb)) * sharpeningValue;
+                gaussRgb = gaussImage.getRGB(x, y);
+                colors[0] = jred(srcRgb) + (jred(srcRgb) - jred(gaussRgb)) * sharpeningValue;
+                colors[1] = jgreen(srcRgb) + (jgreen(srcRgb) - jgreen(gaussRgb)) * sharpeningValue;
+                colors[2] = jblue(srcRgb) + (jblue(srcRgb) - jblue(gaussRgb)) * sharpeningValue;
 
                 for(int k=0; k<3; k++){
                     colors[k] = ImageAlgorithms.clamp(colors[k], 0, 255);
                 }
-
                 dstImage.setRGB(x, y, jrgb(colors[0], colors[1], colors[2]));
             }
         }
-
-        model.setDstImage(dstImage);
-        return model;
+        return dstImage;
     }
 }

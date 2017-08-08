@@ -1,6 +1,7 @@
 package com.pl.poc.view;
 
 import com.pl.poc.controller.CancelController;
+import com.pl.poc.controller.GaussToSharpeningController;
 import com.pl.poc.controller.SharpeningController;
 import com.pl.poc.controller.UpdateController;
 
@@ -39,16 +40,15 @@ public class SharpeningSettingsView extends JFrame{
         setMinimumSize(new Dimension(300, 100));
         setPreferredSize(new Dimension(410, 180));
 
-        ChangeListener sharpeningController = new SharpeningController(mainView, this);
         gaussSlider.setMaximum(50);
         gaussSlider.setMinimum(1);
         gaussSlider.setValue(1);
-        gaussSlider.addChangeListener(sharpeningController);
+        gaussSlider.addChangeListener(new GaussToSharpeningController(mainView, this));
 
         sharpeningSlider.setMaximum(50);
         sharpeningSlider.setMinimum(1);
         sharpeningSlider.setValue(1);
-        sharpeningSlider.addChangeListener(sharpeningController);
+        sharpeningSlider.addChangeListener(new SharpeningController(mainView, this));
 
         cancelButton.setText("Anuluj");
         cancelButton.setPreferredSize(new Dimension(125, 25));

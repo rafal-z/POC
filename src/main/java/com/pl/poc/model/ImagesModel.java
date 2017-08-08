@@ -9,6 +9,7 @@ public class ImagesModel {
     private BufferedImage srcImage;
     private BufferedImage dstImage;
     private BufferedImage orginalImage;
+    private BufferedImage gaussImage;
 
     public ImagesModel(BufferedImage src, BufferedImage dsc){
         this.srcImage = src;
@@ -40,5 +41,13 @@ public class ImagesModel {
 
     public void setOrginalImage(BufferedImage orginalImage) {
         this.orginalImage = orginalImage;
+    }
+
+    public BufferedImage getGaussImage() {
+        return gaussImage;
+    }
+
+    public void setGaussImage(BufferedImage gaussImage) {
+        this.gaussImage = gaussImage;
     }
 }

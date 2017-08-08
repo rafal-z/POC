@@ -1,13 +1,13 @@
 package com.pl.poc.controller;
 
 import com.pl.poc.algorithm.GaussAlgorithms;
-import com.pl.poc.model.ImagesModel;
 import com.pl.poc.view.GaussSettingsView;
 import com.pl.poc.view.MainView;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.awt.image.BufferedImage;
 
 /**
  * Created by Rafał on 2017-07-30.
@@ -23,19 +23,17 @@ public class GaussController implements ChangeListener {
 
     public void stateChanged(ChangeEvent e) {
         JSlider slider = (JSlider) e.getSource();
-        gsView.getNumberLabel().setText(slider.getValue()+"");
-        if (!slider.getValueIsAdjusting()) {
-            if(mView.getImagesModel() != null) {
-                long startTime = System.currentTimeMillis();
+        gsView.getNumberLabel().setText(slider.getValue() + "");
+        if (!slider.getValueIsAdjusting() && mView.getImagesModel() != null) {
+            long startTime = System.currentTimeMillis();
 
-                ImagesModel model = mView.getImagesModel();
-                model = GaussAlgorithms.execute(model, slider.getValue());
-                mView.setImagesModel(model);
-                mView.repaint();
+            BufferedImage srcImage = mView.getImagesModel().getSrcImage();
+            BufferedImage destImage = GaussAlgorithms.execute(srcImage, slider.getValue());
+            mView.getImagesModel().setDstImage(destImage);
+            mView.repaint();
 
-                System.out.println("Czas operacji: " + (double) (System.currentTimeMillis() - startTime) / 1000 + "s"
-                        + " - radius: " + slider.getValue());
-            }
+            System.out.println("Czas operacji: " + (double) (System.currentTimeMillis() - startTime) / 1000 + "s"
+                    + " - radius: " + slider.getValue());
         }
     }
 }

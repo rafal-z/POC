@@ -1,13 +1,13 @@
 package com.pl.poc.controller;
 
+import com.pl.poc.algorithm.GaussAlgorithms;
 import com.pl.poc.algorithm.SharpeningAlgorithms;
-import com.pl.poc.model.ImagesModel;
 import com.pl.poc.view.MainView;
 import com.pl.poc.view.SharpeningSettingsView;
 
-import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.awt.image.BufferedImage;
 
 /**
  * Created by Rafał on 2017-08-05.
@@ -22,24 +22,25 @@ public class SharpeningController implements ChangeListener{
     }
 
     public void stateChanged(ChangeEvent e) {
-        JSlider slider = (JSlider) e.getSource();
-
         int radius = sharpView.getGaussSlider().getValue();
         int unsharp = sharpView.getSharpeningSlider().getValue();
-        sharpView.getNumberGauss().setText(radius+"");
-        sharpView.getNumberSharpening().setText(unsharp+"");
+        sharpView.getNumberGauss().setText(radius + "");
+        sharpView.getNumberSharpening().setText(unsharp + "");
 
-        if(!slider.getValueIsAdjusting()){
-            if(mView.getImagesModel() != null) {
-                long startTime = System.currentTimeMillis();
+        if (mView.getImagesModel() != null) {
+            long startTime = System.currentTimeMillis();
 
-                ImagesModel model = mView.getImagesModel();
-                model = SharpeningAlgorithms.execute(model, unsharp, radius);
-                mView.setImagesModel(model);
-                mView.repaint();
-
-                System.out.println("Czas operacji: " + (double) (System.currentTimeMillis() - startTime) / 1000 + "s");
+            BufferedImage srcImage = mView.getImagesModel().getSrcImage();
+            BufferedImage gaussImage = mView.getImagesModel().getGaussImage();
+            if(gaussImage == null){
+                gaussImage = GaussAlgorithms.execute(srcImage, 1);
+                mView.getImagesModel().setGaussImage(gaussImage);
             }
+            BufferedImage dstImage = SharpeningAlgorithms.execute(srcImage, gaussImage, unsharp, radius);
+            mView.getImagesModel().setDstImage(dstImage);
+            mView.repaint();
+
+            System.out.println("Czas operacji: " + (double) (System.currentTimeMillis() - startTime) / 1000 + "s");
         }
     }
 }
