@@ -1,6 +1,6 @@
 package com.pl.poc.controller;
 
-import com.pl.poc.algorithm.GaussAlgorithms;
+import com.pl.poc.algorithm.GaussianBlurAlgorithms;
 import com.pl.poc.algorithm.Time;
 import com.pl.poc.view.GaussSettingsView;
 import com.pl.poc.view.MainView;
@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 /**
  * Created by Rafał on 2017-07-30.
@@ -29,7 +30,8 @@ public class GaussController implements ChangeListener {
             Time.start();
 
             BufferedImage srcImage = mView.getImagesModel().getSrcImage();
-            BufferedImage destImage = GaussAlgorithms.execute(srcImage, slider.getValue());
+            List<List<Double>> matrixGauss = GaussianBlurAlgorithms.makeMatrixGauss(slider.getValue());
+            BufferedImage destImage = GaussianBlurAlgorithms.execute(srcImage, matrixGauss);
             mView.getImagesModel().setDstImage(destImage);
             mView.repaint();
 

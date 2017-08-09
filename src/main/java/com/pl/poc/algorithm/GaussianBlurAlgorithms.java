@@ -7,11 +7,13 @@ import java.util.List;
 /**
  * Created by Rafał on 2017-07-30.
  */
-public class GaussAlgorithms {
-    private static List<List<Double>> matrixGauss = new ArrayList<List<Double>>();
+public class GaussianBlurAlgorithms {
 
     public static BufferedImage execute(BufferedImage srcImage, int radius){
-        updateMatrixGauss(radius);
+        return execute(srcImage, makeMatrixGauss(radius));
+    }
+
+    public static BufferedImage execute(BufferedImage srcImage, List<List<Double>> matrixGauss){
 
         int size = matrixGauss.size();
         double[] matHorizontally = new double[size];
@@ -99,32 +101,33 @@ public class GaussAlgorithms {
         return ImageAlgorithms.jrgb(sum[0], sum[1], sum[2]);
     }
 
-    public static void updateMatrixGauss(int radius){
-        int MatrixSize = radius*2+1;
+    public static List<List<Double>> makeMatrixGauss(int radius){
+        int matrixSize = radius*2+1;
         double sum = 0.0;
-        matrixGauss.clear();
+        List<List<Double>> matrixGauss = new ArrayList<List<Double>>();
 
-        for(int i=0; i<MatrixSize; i++){
+        for(int i=0; i<matrixSize; i++){
             List<Double> row = new ArrayList<Double>();
             matrixGauss.add(row);
         }
 
-        int amp = 2147483647/(MatrixSize*255);
+        int amp = 2147483647/(matrixSize*255);
         int deviation = (int)Math.ceil(radius*radius / (2*Math.log(amp)));
-        for(int row = 0; row<MatrixSize; row++){
-            for(int col=0; col<MatrixSize; col++){
+        for(int row = 0; row<matrixSize; row++){
+            for(int col=0; col<matrixSize; col++){
                 double x = gaussian(row, radius, deviation) * gaussian(col, radius, deviation);
                 matrixGauss.get(row).add(x);
                 sum += x;
             }
         }
 
-        for(int row = 0; row<MatrixSize; row++) {
-            for (int col = 0; col<MatrixSize; col++) {
+        for(int row = 0; row<matrixSize; row++) {
+            for (int col = 0; col<matrixSize; col++) {
                 double x = matrixGauss.get(row).get(col);
                 matrixGauss.get(row).add(x/sum);
             }
         }
+        return matrixGauss;
     }
 
     public static double gaussian(double x, double radius, double deviation){

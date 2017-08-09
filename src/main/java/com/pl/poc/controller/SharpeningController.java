@@ -1,6 +1,6 @@
 package com.pl.poc.controller;
 
-import com.pl.poc.algorithm.GaussAlgorithms;
+import com.pl.poc.algorithm.GaussianBlurAlgorithms;
 import com.pl.poc.algorithm.SharpeningAlgorithms;
 import com.pl.poc.algorithm.Time;
 import com.pl.poc.view.MainView;
@@ -34,7 +34,7 @@ public class SharpeningController implements ChangeListener{
             BufferedImage srcImage = mView.getImagesModel().getSrcImage();
             BufferedImage gaussImage = mView.getImagesModel().getGaussImage();
             if(gaussImage == null){
-                gaussImage = GaussAlgorithms.execute(srcImage, 1);
+                gaussImage = GaussianBlurAlgorithms.execute(srcImage, 1);
                 mView.getImagesModel().setGaussImage(gaussImage);
             }
             BufferedImage dstImage = SharpeningAlgorithms.execute(srcImage, gaussImage, unsharp, radius);
