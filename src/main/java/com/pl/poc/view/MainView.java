@@ -17,6 +17,7 @@ public class MainView extends JFrame{
     private BrightnessSettingsView brightnessForm;
     private GaussSettingsView gaussSettingsView;
     private SharpeningSettingsView sharpeningSettingsView;
+    private SkeletonizationSettingsView skeletonizationSettingsView;
 
     private JLabel imageLabel;
     private ImageIcon imageIcon;
@@ -121,6 +122,16 @@ public class MainView extends JFrame{
                 sharpeningSettingsView = new SharpeningSettingsView(MainView.this);
                 sharpeningSettingsView.pack();
                 sharpeningSettingsView.setVisible(true);
+            }
+        });
+        menu.add(mitem);
+
+        mitem = new JMenuItem("Skeletonization");
+        mitem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                skeletonizationSettingsView = new SkeletonizationSettingsView(MainView.this);
+                skeletonizationSettingsView.pack();
+                skeletonizationSettingsView.setVisible(true);
             }
         });
         menu.add(mitem);
