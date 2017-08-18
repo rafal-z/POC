@@ -18,6 +18,7 @@ public class MainView extends JFrame{
     private GaussSettingsView gaussSettingsView;
     private SharpeningSettingsView sharpeningSettingsView;
     private SkeletonizationSettingsView skeletonizationSettingsView;
+    private ContourSettingsView contourSettingsView;
 
     private JLabel imageLabel;
     private ImageIcon imageIcon;
@@ -132,6 +133,16 @@ public class MainView extends JFrame{
                 skeletonizationSettingsView = new SkeletonizationSettingsView(MainView.this);
                 skeletonizationSettingsView.pack();
                 skeletonizationSettingsView.setVisible(true);
+            }
+        });
+        menu.add(mitem);
+
+        mitem = new JMenuItem("Contour");
+        mitem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                contourSettingsView = new ContourSettingsView(MainView.this);
+                contourSettingsView.pack();
+                contourSettingsView.setVisible(true);
             }
         });
         menu.add(mitem);
