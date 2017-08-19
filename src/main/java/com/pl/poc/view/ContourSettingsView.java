@@ -34,66 +34,66 @@ public class ContourSettingsView extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setTitle("Contour...");
         setMinimumSize(new Dimension(300, 100));
-        setPreferredSize(new Dimension(800, 500));
+        setPreferredSize(new Dimension(350, 450));
+        setResizable(false);
+        setLocation(10,10);
 
         cancelButton.setText("Anuluj");
-        cancelButton.setPreferredSize(new Dimension(125, 25));
+        cancelButton.setPreferredSize(new Dimension(120, 25));
         cancelButton.addActionListener(new CancelController(mainView, this));
 
         okButton.setText("OK");
-        okButton.setPreferredSize(new Dimension(125, 25));
+        okButton.setPreferredSize(new Dimension(120, 25));
         okButton.addActionListener(new UpdateController(mainView, this));
 
         runButton.setText("Run");
-        runButton.setPreferredSize(new Dimension(125, 25));
+        runButton.setPreferredSize(new Dimension(245, 25));
         runButton.addActionListener(new ContourButtonController(mainView, this));
 
         ContourSliderController contourSliderController = new ContourSliderController(mainView, this);
-        verticallySlider.setMaximum(5);
+        verticallySlider.setMaximum(10);
         verticallySlider.setMinimum(1);
-        verticallySlider.setValue(2);
+        verticallySlider.setValue(1);
+        verticallySlider.setInverted(true);
+        verticallySlider.setPreferredSize(new Dimension(50,200));
+        verticallySlider.setMajorTickSpacing(4);
+        verticallySlider.setMinorTickSpacing(1);
+        verticallySlider.setPaintTicks(true);
         verticallySlider.addChangeListener(contourSliderController);
 
-        horizontallySlider.setMaximum(5);
+        horizontallySlider.setMaximum(10);
         horizontallySlider.setMinimum(1);
-        horizontallySlider.setValue(2);
+        horizontallySlider.setValue(1);
+        horizontallySlider.setPreferredSize(new Dimension(200,50));
+        horizontallySlider.setMajorTickSpacing(4);
+        horizontallySlider.setMinorTickSpacing(1);
+        horizontallySlider.setPaintTicks(true);
         horizontallySlider.addChangeListener(contourSliderController);
 
-        table = new JTable(verticallySlider.getValue()*2+1, horizontallySlider.getValue()*2+1);
-        table.setRowHeight(25);
+        table = new JTable();
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        table.setTableHeader(null);
+        table.setPreferredScrollableViewportSize(new Dimension(250,250));
 
+        resizeTable(verticallySlider.getValue()*2+1, horizontallySlider.getValue()*2+1);
+
+        JPanel mainPanel = new JPanel();
+        mainPanel.setPreferredSize(new Dimension(280,280));
         JPanel tablePanel = new JPanel();
-        tablePanel.add(table);
-        JScrollPane scroll = new JScrollPane(tablePanel);
-        JPanel panel = new JPanel();
-        panel.add(scroll);
 
-        JPanel sliderVerticallyPanel = new JPanel();
-        sliderVerticallyPanel.add(verticallySlider);
-        sliderVerticallyPanel.setPreferredSize(new Dimension(50, 300));
+        JPanel separator = new JPanel();
+        separator.setPreferredSize(new Dimension(80, 50));
 
-        JPanel sliderHorizontallyPanel = new JPanel();
-        sliderHorizontallyPanel.add(horizontallySlider);
+        tablePanel.add(new JScrollPane(table));
+        mainPanel.add(tablePanel);
+        mainPanel.add(verticallySlider);
+        mainPanel.add(horizontallySlider);
+        mainPanel.add(separator);
+        mainPanel.add(runButton);
+        mainPanel.add(okButton);
+        mainPanel.add(cancelButton);
 
-        JPanel runPanel = new JPanel();
-        runPanel.add(runButton);
-
-        JPanel okPanel = new JPanel();
-        okPanel.add(okButton);
-
-        JPanel cancelPanel = new JPanel();
-        cancelPanel.add(cancelButton);
-
-        Container pane = getContentPane();
-        pane.setLayout(new GridLayout(3,2));
-        pane.add(panel);
-        pane.add(sliderVerticallyPanel);
-        pane.add(sliderHorizontallyPanel);
-        pane.add(runPanel);
-        pane.add(okPanel);
-        pane.add(cancelPanel);
-
-        pack();
+        add(mainPanel);
     }
 
     public void resizeTable(int height, int width){
@@ -101,14 +101,14 @@ public class ContourSettingsView extends JFrame {
         dtm.setRowCount(height);
         dtm.setColumnCount(width);
         table.setModel(dtm);
+        table.setRowHeight(25);
 
-        for(int i=0; i<table.getColumnCount(); i++){
-            for(int j=0; j<table.getRowCount(); j++){
-                table.setValueAt(1,j,i);
+        for(int i=0; i<table.getRowCount(); i++){
+            for(int j=0; j<table.getColumnCount(); j++){
+                table.getColumnModel().getColumn(j).setPreferredWidth(25);
+                table.setValueAt(1,i,j);
             }
         }
-//        table.setValueAt(1, table.getRowCount()/2, table.getColumnCount()/2);
-
     }
 
     public int[] getValuesWithTable(){
