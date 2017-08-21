@@ -1,5 +1,6 @@
 package com.pl.poc.view;
 
+import com.pl.poc.controller.MinimumFilterController;
 import com.pl.poc.controller.ReadImageController;
 import com.pl.poc.controller.ResetImageController;
 import com.pl.poc.model.ImagesModel;
@@ -19,6 +20,7 @@ public class MainView extends JFrame{
     private SharpeningSettingsView sharpeningSettingsView;
     private SkeletonizationSettingsView skeletonizationSettingsView;
     private ContourSettingsView contourSettingsView;
+    private NonlinearFiltersSettingsView nonlinearFiltersSettingsView;
 
     private JLabel imageLabel;
     private ImageIcon imageIcon;
@@ -127,6 +129,9 @@ public class MainView extends JFrame{
         });
         menu.add(mitem);
 
+        JMenu morphologyMenu = new JMenu("Morphological operations");
+        menu.add(morphologyMenu);
+
         mitem = new JMenuItem("Skeletonization");
         mitem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -135,7 +140,7 @@ public class MainView extends JFrame{
                 skeletonizationSettingsView.setVisible(true);
             }
         });
-        menu.add(mitem);
+        morphologyMenu.add(mitem);
 
         mitem = new JMenuItem("Contour");
         mitem.addActionListener(new ActionListener() {
@@ -145,7 +150,22 @@ public class MainView extends JFrame{
                 contourSettingsView.setVisible(true);
             }
         });
-        menu.add(mitem);
+        morphologyMenu.add(mitem);
+
+        JMenu nonlinearMenu = new JMenu("Nonlinear filters");
+        menu.add(nonlinearMenu);
+
+        mitem = new JMenuItem("Minimum filter");
+        mitem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                nonlinearFiltersSettingsView = new NonlinearFiltersSettingsView(MainView.this);
+                nonlinearFiltersSettingsView.getRunButton().addActionListener(new MinimumFilterController(MainView.this, nonlinearFiltersSettingsView));
+                nonlinearFiltersSettingsView.setTitle("Minimum filter...");
+                nonlinearFiltersSettingsView.pack();
+                nonlinearFiltersSettingsView.setVisible(true);
+            }
+        });
+        nonlinearMenu.add(mitem);
 
         imageLabel = new JLabel();
         add(new JScrollPane(imageLabel));
