@@ -1,5 +1,6 @@
 package com.pl.poc.view;
 
+import com.pl.poc.controller.MaximumFilterController;
 import com.pl.poc.controller.MinimumFilterController;
 import com.pl.poc.controller.ReadImageController;
 import com.pl.poc.controller.ResetImageController;
@@ -14,19 +15,20 @@ import javax.swing.*;
  */
 public class MainView extends JFrame{
 
+    private JLabel imageLabel;
+    private ImageIcon imageIcon;
+
     private ImagesModel imagesModel;
+
     private BrightnessSettingsView brightnessForm;
     private GaussSettingsView gaussSettingsView;
     private SharpeningSettingsView sharpeningSettingsView;
     private SkeletonizationSettingsView skeletonizationSettingsView;
     private ContourSettingsView contourSettingsView;
-    private NonlinearFiltersSettingsView nonlinearFiltersSettingsView;
+    private NonlinearFiltersSettingsView minimumFilterSettingsView;
+    private NonlinearFiltersSettingsView maximumFilterSettingsView;
 
-    private JLabel imageLabel;
-    private ImageIcon imageIcon;
-
-    public MainView()
-    {
+    public MainView(){
         setTitle("Przetwarzanie obrazów cyfrowych");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         initComponents();
@@ -62,8 +64,7 @@ public class MainView extends JFrame{
         this.imagesModel = imagesModel;
     }
 
-    private void initComponents()
-    {
+    private void initComponents(){
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
 
@@ -158,11 +159,23 @@ public class MainView extends JFrame{
         mitem = new JMenuItem("Minimum filter");
         mitem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                nonlinearFiltersSettingsView = new NonlinearFiltersSettingsView(MainView.this);
-                nonlinearFiltersSettingsView.getRunButton().addActionListener(new MinimumFilterController(MainView.this, nonlinearFiltersSettingsView));
-                nonlinearFiltersSettingsView.setTitle("Minimum filter...");
-                nonlinearFiltersSettingsView.pack();
-                nonlinearFiltersSettingsView.setVisible(true);
+                minimumFilterSettingsView = new NonlinearFiltersSettingsView(MainView.this);
+                minimumFilterSettingsView.getRunButton().addActionListener(new MinimumFilterController(MainView.this, minimumFilterSettingsView));
+                minimumFilterSettingsView.setTitle("Minimum filter");
+                minimumFilterSettingsView.pack();
+                minimumFilterSettingsView.setVisible(true);
+            }
+        });
+        nonlinearMenu.add(mitem);
+
+        mitem = new JMenuItem("Maximum filter");
+        mitem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                maximumFilterSettingsView = new NonlinearFiltersSettingsView(MainView.this);
+                maximumFilterSettingsView.getRunButton().addActionListener(new MaximumFilterController(MainView.this, maximumFilterSettingsView));
+                maximumFilterSettingsView.setTitle("Maximum filter");
+                maximumFilterSettingsView.pack();
+                maximumFilterSettingsView.setVisible(true);
             }
         });
         nonlinearMenu.add(mitem);
