@@ -1,9 +1,6 @@
 package com.pl.poc.view;
 
-import com.pl.poc.controller.MaximumFilterController;
-import com.pl.poc.controller.MinimumFilterController;
-import com.pl.poc.controller.ReadImageController;
-import com.pl.poc.controller.ResetImageController;
+import com.pl.poc.controller.*;
 import com.pl.poc.model.ImagesModel;
 
 import java.awt.event.ActionEvent;
@@ -27,6 +24,7 @@ public class MainView extends JFrame{
     private ContourSettingsView contourSettingsView;
     private NonlinearFiltersSettingsView minimumFilterSettingsView;
     private NonlinearFiltersSettingsView maximumFilterSettingsView;
+    private NonlinearFiltersSettingsView medianFilterSettingsView;
 
     public MainView(){
         setTitle("Przetwarzanie obrazów cyfrowych");
@@ -176,6 +174,19 @@ public class MainView extends JFrame{
                 maximumFilterSettingsView.setTitle("Maximum filter");
                 maximumFilterSettingsView.pack();
                 maximumFilterSettingsView.setVisible(true);
+            }
+        });
+        nonlinearMenu.add(mitem);
+
+
+        mitem = new JMenuItem("Median filter");
+        mitem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                medianFilterSettingsView = new NonlinearFiltersSettingsView(MainView.this);
+                medianFilterSettingsView.getRunButton().addActionListener(new MedianFilterController(MainView.this, medianFilterSettingsView));
+                medianFilterSettingsView.setTitle("Median filter");
+                medianFilterSettingsView.pack();
+                medianFilterSettingsView.setVisible(true);
             }
         });
         nonlinearMenu.add(mitem);
