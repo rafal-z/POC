@@ -25,6 +25,7 @@ public class MainView extends JFrame{
     private NonlinearFiltersSettingsView minimumFilterSettingsView;
     private NonlinearFiltersSettingsView maximumFilterSettingsView;
     private NonlinearFiltersSettingsView medianFilterSettingsView;
+    private NonlinearFiltersSettingsView openingFilterSettingsView;
 
     public MainView(){
         setTitle("Przetwarzanie obrazów cyfrowych");
@@ -187,6 +188,18 @@ public class MainView extends JFrame{
                 medianFilterSettingsView.setTitle("Median filter");
                 medianFilterSettingsView.pack();
                 medianFilterSettingsView.setVisible(true);
+            }
+        });
+        nonlinearMenu.add(mitem);
+
+        mitem = new JMenuItem("Opening filter");
+        mitem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                openingFilterSettingsView = new NonlinearFiltersSettingsView(MainView.this);
+                openingFilterSettingsView.getRunButton().addActionListener(new OpeningFilterController(MainView.this, openingFilterSettingsView));
+                openingFilterSettingsView.setTitle("Opening filter");
+                openingFilterSettingsView.pack();
+                openingFilterSettingsView.setVisible(true);
             }
         });
         nonlinearMenu.add(mitem);
