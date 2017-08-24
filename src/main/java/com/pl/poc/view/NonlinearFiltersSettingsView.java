@@ -42,9 +42,9 @@ public class NonlinearFiltersSettingsView extends JFrame {
 
         runButton.setPreferredSize(new Dimension(125, 25));
 
-        radiusSlider.setMinimum(1);
+        radiusSlider.setMinimum(0);
         radiusSlider.setMaximum(10);
-        radiusSlider.setValue(1);
+        radiusSlider.setValue(0);
         radiusSlider.setMajorTickSpacing(5);
         radiusSlider.setMinorTickSpacing(1);
         radiusSlider.setPaintTicks(true);

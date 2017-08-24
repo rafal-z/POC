@@ -5,12 +5,10 @@ import java.util.Collections;
 
 import static com.pl.poc.algorithm.ImageAlgorithms.jrgb;
 
-
 /**
  * Created by Rafał on 2017-08-19.
  */
 public class MinimumFilterAlgorithms extends NonlinearFilters {
-
     public BufferedImage execute(BufferedImage srcImage, int[] mat){
         BufferedImage workImage = new BufferedImage(srcImage.getWidth(), srcImage.getHeight(), BufferedImage.TYPE_INT_RGB);
 
@@ -26,6 +24,4 @@ public class MinimumFilterAlgorithms extends NonlinearFilters {
         }
         return workImage;
     }
-
-
 }
