@@ -94,6 +94,7 @@ public class ContourSettingsView extends JFrame {
         mainPanel.add(cancelButton);
 
         add(mainPanel);
+        pack();
     }
 
     public void resizeTable(int height, int width){

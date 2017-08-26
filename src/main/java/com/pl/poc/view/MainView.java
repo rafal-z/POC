@@ -15,6 +15,12 @@ public class MainView extends JFrame{
     private JLabel imageLabel;
     private ImageIcon imageIcon;
 
+    private JMenuBar menuBar;
+    private JMenu menu;
+    private JMenuItem mitem;
+    private JMenu morphologyMenu;
+    private JMenu nonlinearMenu;
+
     private ImagesModel imagesModel;
 
     private BrightnessSettingsView brightnessForm;
@@ -40,45 +46,19 @@ public class MainView extends JFrame{
         imageLabel.repaint();
     }
 
-    public JLabel getImageLabel() {
-        return imageLabel;
-    }
-
-    public void setImageLabel(JLabel imageLabel) {
-        this.imageLabel = imageLabel;
-    }
-
-    public ImageIcon getImageIcon() {
-        return imageIcon;
-    }
-
-    public void setImageIcon(ImageIcon imageIcon) {
-        this.imageIcon = imageIcon;
-    }
-
-    public ImagesModel getImagesModel() {
-        return imagesModel;
-    }
-
-    public void setImagesModel(ImagesModel imagesModel) {
-        this.imagesModel = imagesModel;
-    }
-
     private void initComponents(){
-        JMenuBar menuBar = new JMenuBar();
+        menuBar = new JMenuBar();
         setJMenuBar(menuBar);
 
-        JMenu menu = new JMenu("File");
+        menu = new JMenu("File");
         menuBar.add(menu);
 
-        JMenuItem mitem = new JMenuItem("Open");
-        ReadImageController readImageController = new ReadImageController(this);
-        mitem.addActionListener(readImageController);
+        mitem = new JMenuItem("Open");
+        mitem.addActionListener(new ReadImageController(this));
         menu.add(mitem);
 
         mitem = new JMenuItem("Reset Image");
-        ResetImageController resetImageController = new ResetImageController(this);
-        mitem.addActionListener(resetImageController);
+        mitem.addActionListener(new ResetImageController(this));
         menu.add(mitem);
 
         menu.addSeparator();
@@ -102,7 +82,6 @@ public class MainView extends JFrame{
             public void actionPerformed(ActionEvent ae)
             {
                 brightnessForm = new BrightnessSettingsView(MainView.this);
-                brightnessForm.pack();
                 brightnessForm.setVisible(true);
             }
         });
@@ -114,7 +93,6 @@ public class MainView extends JFrame{
         mitem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 gaussSettingsView = new GaussSettingsView(MainView.this);
-                gaussSettingsView.pack();
                 gaussSettingsView.setVisible(true);
             }
         });
@@ -124,20 +102,18 @@ public class MainView extends JFrame{
         mitem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 sharpeningSettingsView = new SharpeningSettingsView(MainView.this);
-                sharpeningSettingsView.pack();
                 sharpeningSettingsView.setVisible(true);
             }
         });
         menu.add(mitem);
 
-        JMenu morphologyMenu = new JMenu("Morphological operations");
+        morphologyMenu = new JMenu("Morphological operations");
         menu.add(morphologyMenu);
 
         mitem = new JMenuItem("Skeletonization");
         mitem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 skeletonizationSettingsView = new SkeletonizationSettingsView(MainView.this);
-                skeletonizationSettingsView.pack();
                 skeletonizationSettingsView.setVisible(true);
             }
         });
@@ -147,13 +123,12 @@ public class MainView extends JFrame{
         mitem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 contourSettingsView = new ContourSettingsView(MainView.this);
-                contourSettingsView.pack();
                 contourSettingsView.setVisible(true);
             }
         });
         morphologyMenu.add(mitem);
 
-        JMenu nonlinearMenu = new JMenu("Nonlinear filters");
+        nonlinearMenu = new JMenu("Nonlinear filters");
         menu.add(nonlinearMenu);
 
         mitem = new JMenuItem("Minimum filter");
@@ -162,7 +137,6 @@ public class MainView extends JFrame{
                 minimumFilterSettingsView = new NonlinearFiltersSettingsView(MainView.this);
                 minimumFilterSettingsView.getRunButton().addActionListener(new MinimumFilterController(MainView.this, minimumFilterSettingsView));
                 minimumFilterSettingsView.setTitle("Minimum filter");
-                minimumFilterSettingsView.pack();
                 minimumFilterSettingsView.setVisible(true);
             }
         });
@@ -174,7 +148,6 @@ public class MainView extends JFrame{
                 maximumFilterSettingsView = new NonlinearFiltersSettingsView(MainView.this);
                 maximumFilterSettingsView.getRunButton().addActionListener(new MaximumFilterController(MainView.this, maximumFilterSettingsView));
                 maximumFilterSettingsView.setTitle("Maximum filter");
-                maximumFilterSettingsView.pack();
                 maximumFilterSettingsView.setVisible(true);
             }
         });
@@ -187,7 +160,6 @@ public class MainView extends JFrame{
                 medianFilterSettingsView = new NonlinearFiltersSettingsView(MainView.this);
                 medianFilterSettingsView.getRunButton().addActionListener(new MedianFilterController(MainView.this, medianFilterSettingsView));
                 medianFilterSettingsView.setTitle("Median filter");
-                medianFilterSettingsView.pack();
                 medianFilterSettingsView.setVisible(true);
             }
         });
@@ -199,7 +171,6 @@ public class MainView extends JFrame{
                 openingFilterSettingsView = new NonlinearFiltersSettingsView(MainView.this);
                 openingFilterSettingsView.getRunButton().addActionListener(new OpeningFilterController(MainView.this, openingFilterSettingsView));
                 openingFilterSettingsView.setTitle("Opening filter");
-                openingFilterSettingsView.pack();
                 openingFilterSettingsView.setVisible(true);
             }
         });
@@ -212,7 +183,6 @@ public class MainView extends JFrame{
                 closingFilterSettingsView = new NonlinearFiltersSettingsView(MainView.this);
                 closingFilterSettingsView.getRunButton().addActionListener(new ClosingFilterController(MainView.this, closingFilterSettingsView));
                 closingFilterSettingsView.setTitle("Closing filter");
-                closingFilterSettingsView.pack();
                 closingFilterSettingsView.setVisible(true);
             }
         });
@@ -220,5 +190,29 @@ public class MainView extends JFrame{
 
         imageLabel = new JLabel();
         add(new JScrollPane(imageLabel));
+    }
+
+    public JLabel getImageLabel() {
+        return imageLabel;
+    }
+
+    public void setImageLabel(JLabel imageLabel) {
+        this.imageLabel = imageLabel;
+    }
+
+    public ImageIcon getImageIcon() {
+        return imageIcon;
+    }
+
+    public void setImageIcon(ImageIcon imageIcon) {
+        this.imageIcon = imageIcon;
+    }
+
+    public ImagesModel getImagesModel() {
+        return imagesModel;
+    }
+
+    public void setImagesModel(ImagesModel imagesModel) {
+        this.imagesModel = imagesModel;
     }
 }

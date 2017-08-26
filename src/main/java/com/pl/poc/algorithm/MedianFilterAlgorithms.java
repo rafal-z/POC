@@ -5,28 +5,21 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import static com.pl.poc.algorithm.ImageAlgorithms.jrgb;
-
 /**
  * Created by Rafał on 2017-08-22.
  */
 public class MedianFilterAlgorithms extends NonlinearFilters {
 
     public BufferedImage execute(BufferedImage srcImage, int[] mat) {
-        BufferedImage workImage = new BufferedImage(srcImage.getWidth(), srcImage.getHeight(), BufferedImage.TYPE_INT_RGB);
-        Comparator<Integer> comp = Comparator.naturalOrder();
-
-        for(int y=0; y<srcImage.getHeight(); y++){
-            for(int x=0; x<srcImage.getWidth(); x++){
-                super.findNeighbors(x,y,mat,srcImage);
-                workImage.setRGB(x, y, jrgb(
-                        (int)median(super.getChannelRed(), comp),
-                        (int)median(super.getChannelGreen(), comp),
-                        (int)median(super.getChannelBlue(), comp)
-                ));
+        Command command = new Command() {
+            @Override
+            public int runCommand(List<Integer> list) {
+                Comparator<Integer> comp = Comparator.naturalOrder();
+                return (int)median(list, comp);
             }
-        }
-        return workImage;
+        };
+
+        return super.execute(srcImage, mat, command);
     }
 
     public static <T extends Number> double median(List<T> coll, Comparator<T> comp) {

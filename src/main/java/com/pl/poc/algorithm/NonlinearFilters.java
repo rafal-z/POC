@@ -4,6 +4,8 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.pl.poc.algorithm.ImageAlgorithms.jrgb;
+
 /**
  * Created by Rafał on 2017-08-20.
  */
@@ -12,7 +14,21 @@ public abstract class NonlinearFilters {
     private List<Integer> channelGreen = new ArrayList<Integer>();
     private List<Integer> channelBlue = new ArrayList<Integer>();
 
-    public abstract BufferedImage execute(BufferedImage srcImage, int[] mat);
+    public BufferedImage execute(BufferedImage srcImage, int[] mat, Command command){
+        BufferedImage workImage = new BufferedImage(srcImage.getWidth(), srcImage.getHeight(), BufferedImage.TYPE_INT_RGB);
+
+        for(int y=0; y<srcImage.getHeight(); y++){
+            for(int x=0; x<srcImage.getWidth(); x++){
+                findNeighbors(x,y,mat,srcImage);
+                workImage.setRGB(x, y, jrgb(
+                        command.runCommand(getChannelRed()),
+                        command.runCommand(getChannelGreen()),
+                        command.runCommand(getChannelBlue())
+                ));
+            }
+        }
+        return workImage;
+    }
 
     protected void findNeighbors(int xr, int yr, int[] mat, BufferedImage srcImage){
         channelRed.clear();
