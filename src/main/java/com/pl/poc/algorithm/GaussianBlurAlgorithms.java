@@ -106,6 +106,13 @@ public class GaussianBlurAlgorithms {
         double sum = 0.0;
         List<List<Double>> matrixGauss = new ArrayList<List<Double>>();
 
+        if(radius < 1){
+            List<Double> row = new ArrayList<Double>();
+            row.add(1.0);
+            matrixGauss.add(row);
+            return matrixGauss;
+        }
+
         for(int i=0; i<matrixSize; i++){
             List<Double> row = new ArrayList<Double>();
             matrixGauss.add(row);

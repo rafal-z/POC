@@ -63,10 +63,17 @@ public abstract class NonlinearFilters {
 
     public static int[] makeRoundMask(int row, int column){
         int[] mask = makeSquareMask(row, column);
-        mask[0] = 0;
-        mask[column-1] = 0;
-        mask[row*column-column] = 0;
-        mask[row*column-1] = 0;
+
+        // Bez warunku w instrukcji if() przy radius=0,
+        // maska jest tablicą jednoelementową z wartością ZERO.
+        // Wtedy pixel nie ma żednego sąsiedztwa, a lista z kanałami kolorów jest pusta.
+        // W wyniku tego Collections.min() i max() rzucają wyjątek NoSuchElementException.
+        if(mask.length >= 3) {
+            mask[0] = 0;
+            mask[column - 1] = 0;
+            mask[row * column - column] = 0;
+            mask[row * column - 1] = 0;
+        }
         return mask;
     }
 

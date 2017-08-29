@@ -25,7 +25,7 @@ public class GaussSettingsView extends JFrame {
 
     private void initComponents() {
         gaussSlider = new JSlider();
-        numberLabel = new JLabel("1");
+        numberLabel = new JLabel("0");
         cancelButton = new JButton();
         okButton = new JButton();
 
@@ -35,8 +35,8 @@ public class GaussSettingsView extends JFrame {
         setPreferredSize(new Dimension(380, 120));
 
         gaussSlider.setMaximum(50);
-        gaussSlider.setMinimum(1);
-        gaussSlider.setValue(1);
+        gaussSlider.setMinimum(0);
+        gaussSlider.setValue(0);
         gaussSlider.addChangeListener(new GaussController(mainView, this));
 
         cancelButton.setText("Anuluj");
