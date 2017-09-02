@@ -33,6 +33,7 @@ public class MainView extends JFrame{
     private NonlinearFiltersSettingsView medianFilterSettingsView;
     private NonlinearFiltersSettingsView openingFilterSettingsView;
     private NonlinearFiltersSettingsView closingFilterSettingsView;
+    private AdaptiveMedianSettingsView AdaptiveMedianSettingsView;
 
     public MainView(){
         setTitle("Przetwarzanie obrazów cyfrowych");
@@ -184,6 +185,16 @@ public class MainView extends JFrame{
                 closingFilterSettingsView.getRunButton().addActionListener(new ClosingFilterController(MainView.this, closingFilterSettingsView));
                 closingFilterSettingsView.setTitle("Closing filter");
                 closingFilterSettingsView.setVisible(true);
+            }
+        });
+        nonlinearMenu.add(mitem);
+
+        mitem = new JMenuItem("Adaptive Median");
+        mitem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AdaptiveMedianSettingsView = new AdaptiveMedianSettingsView(MainView.this);
+                AdaptiveMedianSettingsView.setVisible(true);
             }
         });
         nonlinearMenu.add(mitem);
