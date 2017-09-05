@@ -33,7 +33,8 @@ public class MainView extends JFrame{
     private NonlinearFiltersSettingsView medianFilterSettingsView;
     private NonlinearFiltersSettingsView openingFilterSettingsView;
     private NonlinearFiltersSettingsView closingFilterSettingsView;
-    private AdaptiveMedianSettingsView AdaptiveMedianSettingsView;
+    private AdaptiveMedianSettingsView adaptiveMedianSettingsView;
+    private BilateralFilterSettingsView bilateralFilterSettingsView;
 
     public MainView(){
         setTitle("Przetwarzanie obrazów cyfrowych");
@@ -193,8 +194,18 @@ public class MainView extends JFrame{
         mitem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AdaptiveMedianSettingsView = new AdaptiveMedianSettingsView(MainView.this);
-                AdaptiveMedianSettingsView.setVisible(true);
+                adaptiveMedianSettingsView = new AdaptiveMedianSettingsView(MainView.this);
+                adaptiveMedianSettingsView.setVisible(true);
+            }
+        });
+        nonlinearMenu.add(mitem);
+
+        mitem = new JMenuItem("Bilateral Filter");
+        mitem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                bilateralFilterSettingsView = new BilateralFilterSettingsView(MainView.this);
+                bilateralFilterSettingsView.setVisible(true);
             }
         });
         nonlinearMenu.add(mitem);
