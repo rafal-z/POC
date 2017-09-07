@@ -35,6 +35,7 @@ public class MainView extends JFrame{
     private NonlinearFiltersSettingsView closingFilterSettingsView;
     private AdaptiveMedianSettingsView adaptiveMedianSettingsView;
     private BilateralFilterSettingsView bilateralFilterSettingsView;
+    private CannyEdgeSettingsView cannyView;
 
     public MainView(){
         setTitle("Przetwarzanie obrazów cyfrowych");
@@ -105,6 +106,16 @@ public class MainView extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 sharpeningSettingsView = new SharpeningSettingsView(MainView.this);
                 sharpeningSettingsView.setVisible(true);
+            }
+        });
+        menu.add(mitem);
+
+        mitem = new JMenuItem("Canny Edge Detector");
+        mitem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cannyView = new CannyEdgeSettingsView(MainView.this);
+                cannyView.setVisible(true);
             }
         });
         menu.add(mitem);
