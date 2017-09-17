@@ -39,8 +39,8 @@ public class CannyEdgeSettingsView extends JFrame{
         cancelButton = new JButton();
         highLabel = new JLabel();
         lowLabel = new JLabel();
-        lowThresholdSlider = new JSlider(1,255,120);
-        highThresholdSlider = new JSlider(1,255,180);
+        lowThresholdSlider = new JSlider(1,255,100);
+        highThresholdSlider = new JSlider(1,255,120);
         radiusSlider = new JSlider(1,10,2);
         valueLowLabel = new JLabel();
         valueHighLabel = new JLabel();

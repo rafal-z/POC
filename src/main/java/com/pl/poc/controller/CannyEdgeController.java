@@ -29,7 +29,7 @@ public class CannyEdgeController implements ActionListener{
         double hight = (double)cannyView.getHighThresholdSlider().getValue();
         int radius = cannyView.getRadiusSlider().getValue();
         CannyEdgeDetectorAlgorithm canny = new CannyEdgeDetectorAlgorithm();
-        BufferedImage workImage = canny.execute(srcImage,hight, low, radius);
+        BufferedImage workImage = canny.execute(srcImage,low, hight, radius);
         mainView.getImagesModel().setDstImage(workImage);
         mainView.repaint();
 

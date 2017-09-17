@@ -8,7 +8,6 @@ import static com.pl.poc.algorithm.ImageAlgorithms.*;
  * Created by Rafał on 2017-09-06.
  */
 public class CannyEdgeDetectorAlgorithm {
-    private int average;
     private double highThreshold;
     private double lowThreshold;
     private int[][] gradientDirection;
@@ -29,11 +28,11 @@ public class CannyEdgeDetectorAlgorithm {
             gx = Sobel.Horizontal(blurred);
             gy = Sobel.Vertical(blurred);
 
-            Magnitude();
-            Direction();
-            Suppression();
+            gradientMagnitudes();
+            direction();
+            suppression();
 
-            resultImage = convertToRGB(Hysteresis());
+            resultImage = convertToRGB(hysteresis());
         }
 
         return resultImage;
@@ -76,32 +75,19 @@ public class CannyEdgeDetectorAlgorithm {
         return resultImage;
     }
 
-    private void Magnitude() {
-        double sum = 0;
-        double value = 0;
+    private void gradientMagnitudes() {
         int height = gx.length;
         int width = gx[0].length;
-        double allPixels = height * width;
         directionMask = new double[height][width];
 
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 directionMask[i][j] = Math.sqrt(gx[i][j] * gx[i][j] + gy[i][j] * gy[i][j]);
-                sum += directionMask[i][j];
-            }
-        }
-
-        average = (int) Math.round(sum / allPixels);
-
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                double difference = directionMask[i][j] - average;
-                value += (difference*difference);
             }
         }
     }
 
-    private void Direction() {
+    private void direction() {
         int height = gx.length;
         int width = gx[0].length;
         double radian = 180 / Math.PI;
@@ -128,7 +114,7 @@ public class CannyEdgeDetectorAlgorithm {
         }
     }
 
-    private void Suppression() {
+    private void suppression() {
         int height = directionMask.length - 1;
         int width = directionMask[0].length - 1;
 
@@ -162,7 +148,7 @@ public class CannyEdgeDetectorAlgorithm {
         }
     }
 
-    private int[][] Hysteresis() {
+    private int[][] hysteresis() {
         int height = directionMask.length - 1;
         int width = directionMask[0].length - 1;
         int[][] bin = new int[height - 1][width - 1];
@@ -176,16 +162,16 @@ public class CannyEdgeDetectorAlgorithm {
                 } else if (magnitude < lowThreshold) {
                     bin[i - 1][j - 1] = 0;
                 } else {
-                    boolean connected = false;
+                    boolean flag = false;
 
                     for (int nr = -1; nr < 2; nr++) {
                         for (int nc = -1; nc < 2; nc++) {
                             if (directionMask[i + nr][j + nc] >= highThreshold) {
-                                connected = true;
+                                flag = true;
                             }
                         }
                     }
-                    bin[i - 1][j - 1] = (connected) ? 255 : 0;
+                    bin[i - 1][j - 1] = (flag) ? 255 : 0;
                 }
             }
         }
