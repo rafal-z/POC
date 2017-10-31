@@ -10,7 +10,7 @@ import java.awt.*;
 /**
  * Created by Rafał on 2017-09-02.
  */
-public class BilateralFilterSettingsView extends JFrame {
+public class BilateralFilterSettingsView extends BaseSettingsView {
     private JLabel sigmaMinLabel;
     private JLabel sigmaMaxLabel;
     private JButton runButton;

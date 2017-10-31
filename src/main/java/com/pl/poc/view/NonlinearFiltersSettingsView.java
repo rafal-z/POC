@@ -9,7 +9,7 @@ import java.awt.*;
 /**
  * Created by Rafał on 2017-08-19.
  */
-public class NonlinearFiltersSettingsView extends JFrame {
+public class NonlinearFiltersSettingsView extends BaseSettingsView {
     private MainView mainView;
 
     private JButton cancelButton;

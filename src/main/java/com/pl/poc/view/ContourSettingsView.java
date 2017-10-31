@@ -9,7 +9,7 @@ import java.awt.*;
 /**
  * Created by Rafał on 2017-08-15.
  */
-public class ContourSettingsView extends JFrame {
+public class ContourSettingsView extends BaseSettingsView {
     private MainView mainView;
 
     private JButton cancelButton;

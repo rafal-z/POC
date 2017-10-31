@@ -10,7 +10,7 @@ import java.awt.*;
 /**
  * Created by Rafał on 2017-07-30.
  */
-public class GaussSettingsView extends JFrame {
+public class GaussSettingsView extends BaseSettingsView {
     private MainView mainView;
 
     private JButton cancelButton;

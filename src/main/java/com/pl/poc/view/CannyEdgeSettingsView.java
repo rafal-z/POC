@@ -12,7 +12,7 @@ import java.awt.*;
 /**
  * Created by Rafał on 2017-09-06.
  */
-public class CannyEdgeSettingsView extends JFrame{
+public class CannyEdgeSettingsView extends BaseSettingsView{
     private JLabel highLabel;
     private JLabel lowLabel;
     private JLabel valueLowLabel;

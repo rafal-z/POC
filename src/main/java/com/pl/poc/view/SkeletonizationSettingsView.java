@@ -10,7 +10,7 @@ import java.awt.*;
 /**
  * Created by Rafał on 2017-08-12.
  */
-public class SkeletonizationSettingsView extends JFrame {
+public class SkeletonizationSettingsView extends BaseSettingsView {
     private MainView mainView;
 
     private JButton cancelButton;

@@ -12,7 +12,7 @@ import java.awt.*;
 /**
  * Created by Rafał on 2017-09-01.
  */
-public class AdaptiveMedianSettingsView extends JFrame {
+public class AdaptiveMedianSettingsView extends BaseSettingsView {
     private MainView mainView;
 
     private JLabel shapeMaskLabel;

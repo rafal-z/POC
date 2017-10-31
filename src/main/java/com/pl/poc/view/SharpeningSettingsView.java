@@ -12,7 +12,7 @@ import java.awt.*;
 /**
  * Created by Rafał on 2017-08-05.
  */
-public class SharpeningSettingsView extends JFrame{
+public class SharpeningSettingsView extends BaseSettingsView{
     private MainView mainView;
 
     private JButton cancelButton;

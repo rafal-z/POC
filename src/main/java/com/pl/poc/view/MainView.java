@@ -3,6 +3,7 @@ package com.pl.poc.view;
 import com.pl.poc.controller.*;
 import com.pl.poc.model.ImagesModel;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -41,12 +42,20 @@ public class MainView extends JFrame{
         setTitle("Przetwarzanie obrazów cyfrowych");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         initComponents();
+        centerFrameOnScreen();
     }
 
     public void repaint(){
         imageIcon.setImage(imagesModel.getDstImage());
         imageLabel.setIcon(imageIcon);
         imageLabel.repaint();
+    }
+
+    public void centerFrameOnScreen(){
+        Dimension dimensionScr = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (int)((dimensionScr.getWidth()/2 - this.getWidth())/2);
+        int y = (int)((dimensionScr.getHeight()/2 - this.getHeight())/2);
+        this.setLocation(x,y);
     }
 
     private void initComponents(){
@@ -97,6 +106,8 @@ public class MainView extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 gaussSettingsView = new GaussSettingsView(MainView.this);
                 gaussSettingsView.setVisible(true);
+                gaussSettingsView.centerFrameOnScreen();
+
             }
         });
         menu.add(mitem);
@@ -106,6 +117,7 @@ public class MainView extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 sharpeningSettingsView = new SharpeningSettingsView(MainView.this);
                 sharpeningSettingsView.setVisible(true);
+                sharpeningSettingsView.centerFrameOnScreen();
             }
         });
         menu.add(mitem);
@@ -116,6 +128,7 @@ public class MainView extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 cannyView = new CannyEdgeSettingsView(MainView.this);
                 cannyView.setVisible(true);
+                cannyView.centerFrameOnScreen();
             }
         });
         menu.add(mitem);
@@ -128,6 +141,7 @@ public class MainView extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 skeletonizationSettingsView = new SkeletonizationSettingsView(MainView.this);
                 skeletonizationSettingsView.setVisible(true);
+                skeletonizationSettingsView.centerFrameOnScreen();
             }
         });
         morphologyMenu.add(mitem);
@@ -137,6 +151,7 @@ public class MainView extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 contourSettingsView = new ContourSettingsView(MainView.this);
                 contourSettingsView.setVisible(true);
+                contourSettingsView.centerFrameOnScreen();
             }
         });
         morphologyMenu.add(mitem);
@@ -151,6 +166,7 @@ public class MainView extends JFrame{
                 minimumFilterSettingsView.getRunButton().addActionListener(new MinimumFilterController(MainView.this, minimumFilterSettingsView));
                 minimumFilterSettingsView.setTitle("Minimum filter");
                 minimumFilterSettingsView.setVisible(true);
+                minimumFilterSettingsView.centerFrameOnScreen();
             }
         });
         nonlinearMenu.add(mitem);
@@ -162,6 +178,7 @@ public class MainView extends JFrame{
                 maximumFilterSettingsView.getRunButton().addActionListener(new MaximumFilterController(MainView.this, maximumFilterSettingsView));
                 maximumFilterSettingsView.setTitle("Maximum filter");
                 maximumFilterSettingsView.setVisible(true);
+                maximumFilterSettingsView.centerFrameOnScreen();
             }
         });
         nonlinearMenu.add(mitem);
@@ -174,6 +191,7 @@ public class MainView extends JFrame{
                 medianFilterSettingsView.getRunButton().addActionListener(new MedianFilterController(MainView.this, medianFilterSettingsView));
                 medianFilterSettingsView.setTitle("Median filter");
                 medianFilterSettingsView.setVisible(true);
+                medianFilterSettingsView.centerFrameOnScreen();
             }
         });
         nonlinearMenu.add(mitem);
@@ -185,6 +203,7 @@ public class MainView extends JFrame{
                 openingFilterSettingsView.getRunButton().addActionListener(new OpeningFilterController(MainView.this, openingFilterSettingsView));
                 openingFilterSettingsView.setTitle("Opening filter");
                 openingFilterSettingsView.setVisible(true);
+                openingFilterSettingsView.centerFrameOnScreen();
             }
         });
         nonlinearMenu.add(mitem);
@@ -197,6 +216,7 @@ public class MainView extends JFrame{
                 closingFilterSettingsView.getRunButton().addActionListener(new ClosingFilterController(MainView.this, closingFilterSettingsView));
                 closingFilterSettingsView.setTitle("Closing filter");
                 closingFilterSettingsView.setVisible(true);
+                closingFilterSettingsView.centerFrameOnScreen();
             }
         });
         nonlinearMenu.add(mitem);
@@ -207,6 +227,7 @@ public class MainView extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 adaptiveMedianSettingsView = new AdaptiveMedianSettingsView(MainView.this);
                 adaptiveMedianSettingsView.setVisible(true);
+                adaptiveMedianSettingsView.centerFrameOnScreen();
             }
         });
         nonlinearMenu.add(mitem);
@@ -217,6 +238,7 @@ public class MainView extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 bilateralFilterSettingsView = new BilateralFilterSettingsView(MainView.this);
                 bilateralFilterSettingsView.setVisible(true);
+                bilateralFilterSettingsView.centerFrameOnScreen();
             }
         });
         nonlinearMenu.add(mitem);
