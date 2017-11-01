@@ -14,16 +14,16 @@ public abstract class NonlinearFilters {
     private List<Integer> channelGreen = new ArrayList<Integer>();
     private List<Integer> channelBlue = new ArrayList<Integer>();
 
-    public BufferedImage execute(BufferedImage srcImage, int[] mat, Command command){
+    public BufferedImage execute(BufferedImage srcImage, int[] mat, ElementFromList elementFromList){
         BufferedImage workImage = new BufferedImage(srcImage.getWidth(), srcImage.getHeight(), BufferedImage.TYPE_INT_RGB);
 
         for(int y=0; y<srcImage.getHeight(); y++){
             for(int x=0; x<srcImage.getWidth(); x++){
                 findNeighbors(x,y,mat,srcImage);
                 workImage.setRGB(x, y, jrgb(
-                        command.runCommand(getChannelRed()),
-                        command.runCommand(getChannelGreen()),
-                        command.runCommand(getChannelBlue())
+                        elementFromList.execute(getChannelRed()),
+                        elementFromList.execute(getChannelGreen()),
+                        elementFromList.execute(getChannelBlue())
                 ));
             }
         }

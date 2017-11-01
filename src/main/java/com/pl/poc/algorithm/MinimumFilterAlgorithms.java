@@ -9,13 +9,13 @@ import java.util.List;
  */
 public class MinimumFilterAlgorithms extends NonlinearFilters {
     public BufferedImage execute(BufferedImage srcImage, int[] mat){
-        Command command = new Command() {
+        ElementFromList elementFromList = new ElementFromList() {
             @Override
-            public int runCommand(List<Integer> list) {
+            public int execute(List<Integer> list) {
                 return Collections.min(list);
             }
         };
 
-        return super.execute(srcImage, mat, command);
+        return super.execute(srcImage, mat, elementFromList);
     }
 }

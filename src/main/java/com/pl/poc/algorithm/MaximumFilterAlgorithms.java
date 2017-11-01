@@ -9,13 +9,16 @@ import java.util.List;
  */
 public class MaximumFilterAlgorithms extends NonlinearFilters {
     public BufferedImage execute(BufferedImage srcImage, int[] mat) {
-        Command command = new Command() {
+        ElementFromList elementFromList = new ElementFromList() {
             @Override
-            public int runCommand(List<Integer> list) {
+            public int execute(List<Integer> list) {
                 return Collections.max(list);
             }
         };
 
-        return super.execute(srcImage, mat, command);
+        //to wyżej można zastąpić lambdą
+        //ElementFromList elementFromList = list -> Collections.max(list);
+
+        return super.execute(srcImage, mat, elementFromList);
     }
 }

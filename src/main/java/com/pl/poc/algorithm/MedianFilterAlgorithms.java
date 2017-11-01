@@ -11,15 +11,15 @@ import java.util.List;
 public class MedianFilterAlgorithms extends NonlinearFilters {
 
     public BufferedImage execute(BufferedImage srcImage, int[] mat) {
-        Command command = new Command() {
+        ElementFromList elementFromList = new ElementFromList() {
             @Override
-            public int runCommand(List<Integer> list) {
+            public int execute(List<Integer> list) {
                 Comparator<Integer> comp = Comparator.naturalOrder();
                 return (int)median(list, comp);
             }
         };
 
-        return super.execute(srcImage, mat, command);
+        return super.execute(srcImage, mat, elementFromList);
     }
 
     public static <T extends Number> double median(List<T> coll, Comparator<T> comp) {

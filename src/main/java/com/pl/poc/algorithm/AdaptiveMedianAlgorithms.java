@@ -23,23 +23,23 @@ public class AdaptiveMedianAlgorithms {
     public BufferedImage execute(int size, int sizeMax, int shapeMask, BufferedImage srcImage){
         int rgb;
         BufferedImage workImage = new BufferedImage(srcImage.getWidth(), srcImage.getHeight(), BufferedImage.TYPE_INT_RGB);
-        Command2 commandRed = new Command2() {
+        ColorFromRgb commandRed = new ColorFromRgb() {
             @Override
-            public int runCommand(int rgb) {
+            public int execute(int rgb) {
                 return jred(rgb);
             }
         };
 
-        Command2 commandGreen = new Command2() {
+        ColorFromRgb commandGreen = new ColorFromRgb() {
             @Override
-            public int runCommand(int rgb) {
+            public int execute(int rgb) {
                 return jgreen(rgb);
             }
         };
 
-        Command2 commandBlue = new Command2() {
+        ColorFromRgb commandBlue = new ColorFromRgb() {
             @Override
-            public int runCommand(int rgb) {
+            public int execute(int rgb) {
                 return jblue(rgb);
             }
         };
@@ -57,10 +57,10 @@ public class AdaptiveMedianAlgorithms {
         return workImage;
     }
 
-    private int stepA(int x, int y, int size, int sizeMax, List<Float> list, Command2 command, BufferedImage srcImage, int shapeMask){
+    private int stepA(int x, int y, int size, int sizeMax, List<Float> list, ColorFromRgb colorFromRgb, BufferedImage srcImage, int shapeMask){
         float a1, a2;
 
-        list = findNeighbors(y,x,size,list,command, srcImage, shapeMask);
+        list = findNeighbors(y,x,size,list,colorFromRgb, srcImage, shapeMask);
         if(list.size() != 0) {
             max = Collections.max(list);
             min = Collections.min(list);
@@ -76,31 +76,31 @@ public class AdaptiveMedianAlgorithms {
         a2 = median - max;
 
         if(a1>0 && a2<0)
-            return stepB(x,y,srcImage, command);
+            return stepB(x,y,srcImage, colorFromRgb);
         else
             size += 2;
 
         if(size <= sizeMax)
-            return stepA(x,y,size,sizeMax,list,command, srcImage, shapeMask);
+            return stepA(x,y,size,sizeMax,list,colorFromRgb, srcImage, shapeMask);
         else
             return (int)median;
     }
 
-    private int stepB(int x, int y, BufferedImage srcImage, Command2 command2){
+    private int stepB(int x, int y, BufferedImage srcImage, ColorFromRgb colorFromRgb){
         float b1, b2;
         int rgb;
 
         rgb = srcImage.getRGB(x,y);
-        b1 = command2.runCommand(rgb) - min;
-        b2 = command2.runCommand(rgb) - max;
+        b1 = colorFromRgb.execute(rgb) - min;
+        b2 = colorFromRgb.execute(rgb) - max;
 
         if(b1>0 && b2<0)
-            return command2.runCommand(rgb);
+            return colorFromRgb.execute(rgb);
         else
             return (int)median;
     }
 
-    private List<Float> findNeighbors(int yr, int xr, int size, List<Float> list, Command2 command, BufferedImage srcImage, int shapeMask){
+    private List<Float> findNeighbors(int yr, int xr, int size, List<Float> list, ColorFromRgb colorFromRgb, BufferedImage srcImage, int shapeMask){
         list.clear();
         int[] mask = (shapeMask == 1) ? NonlinearFilters.makeSquareMask(size, size) : NonlinearFilters.makeRoundMask(size,size);
         int rgb;
@@ -111,7 +111,7 @@ public class AdaptiveMedianAlgorithms {
                     if(x>=0 && x<srcImage.getWidth()) {
                         if(mask[i*size+j] == 1){
                             rgb = srcImage.getRGB(x,y);
-                            list.add((float)command.runCommand(rgb));
+                            list.add((float)colorFromRgb.execute(rgb));
                         }
                     }
                 }

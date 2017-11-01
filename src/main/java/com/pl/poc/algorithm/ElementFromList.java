@@ -5,6 +5,6 @@ import java.util.List;
 /**
  * Created by Rafał on 2017-08-24.
  */
-public interface Command {
-    int runCommand(List<Integer> list);
+public interface ElementFromList {
+    int execute(List<Integer> list);
 }
