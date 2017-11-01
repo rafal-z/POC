@@ -22,21 +22,22 @@ public class MinimumFilterController implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        Time.start();
-        BufferedImage srcImage = mainView.getImagesModel().getSrcImage();
-        int[] mat;
-        int radius = nfsView.getRadiusSlider().getValue();
-        MinimumFilterAlgorithms minimumFilter = new MinimumFilterAlgorithms();
+        if(mainView.getImagesModel() != null) {
+            Time.start();
+            BufferedImage srcImage = mainView.getImagesModel().getSrcImage();
+            int[] mat;
+            int radius = nfsView.getRadiusSlider().getValue();
+            MinimumFilterAlgorithms minimumFilter = new MinimumFilterAlgorithms();
 
-        if(nfsView.getSquareMask().isSelected()) {
-            mat = minimumFilter.makeSquareMask(radius*2+1, radius*2+1);
+            if (nfsView.getSquareMask().isSelected()) {
+                mat = minimumFilter.makeSquareMask(radius * 2 + 1, radius * 2 + 1);
+            } else {
+                mat = minimumFilter.makeRoundMask(radius * 2 + 1, radius * 2 + 1);
+            }
+            BufferedImage workImage = minimumFilter.execute(srcImage, mat);
+            mainView.getImagesModel().setDstImage(workImage);
+            mainView.repaint();
+            Time.stop(mainView.getTimeLabel());
         }
-        else {
-            mat = minimumFilter.makeRoundMask(radius*2+1, radius*2+1);
-        }
-        BufferedImage workImage = minimumFilter.execute(srcImage, mat);
-        mainView.getImagesModel().setDstImage(workImage);
-        mainView.repaint();
-        Time.stop(mainView.getTimeLabel());
     }
 }

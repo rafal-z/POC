@@ -22,21 +22,22 @@ public class MaximumFilterController implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        Time.start();
-        BufferedImage srcImage = mainView.getImagesModel().getSrcImage();
-        int[] mat;
-        int radius = maximumFilterView.getRadiusSlider().getValue();
-        MaximumFilterAlgorithms maximumFilter = new MaximumFilterAlgorithms();
+        if(mainView.getImagesModel() != null) {
+            Time.start();
+            BufferedImage srcImage = mainView.getImagesModel().getSrcImage();
+            int[] mat;
+            int radius = maximumFilterView.getRadiusSlider().getValue();
+            MaximumFilterAlgorithms maximumFilter = new MaximumFilterAlgorithms();
 
-        if(maximumFilterView.getSquareMask().isSelected()) {
-            mat = maximumFilter.makeSquareMask(radius*2+1, radius*2+1);
+            if (maximumFilterView.getSquareMask().isSelected()) {
+                mat = maximumFilter.makeSquareMask(radius * 2 + 1, radius * 2 + 1);
+            } else {
+                mat = maximumFilter.makeRoundMask(radius * 2 + 1, radius * 2 + 1);
+            }
+            BufferedImage workImage = maximumFilter.execute(srcImage, mat);
+            mainView.getImagesModel().setDstImage(workImage);
+            mainView.repaint();
+            Time.stop(mainView.getTimeLabel());
         }
-        else {
-            mat = maximumFilter.makeRoundMask(radius*2+1, radius*2+1);
-        }
-        BufferedImage workImage = maximumFilter.execute(srcImage, mat);
-        mainView.getImagesModel().setDstImage(workImage);
-        mainView.repaint();
-        Time.stop(mainView.getTimeLabel());
     }
 }

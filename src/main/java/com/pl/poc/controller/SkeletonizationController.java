@@ -12,18 +12,20 @@ import java.awt.image.BufferedImage;
  * Created by Rafał on 2017-08-12.
  */
 public class SkeletonizationController implements ActionListener {
-    MainView mView;
+    MainView mainView;
 
     public SkeletonizationController(MainView mainView){
-        mView = mainView;
+        this.mainView = mainView;
     }
 
     public void actionPerformed(ActionEvent e) {
-        Time.start();
-        BufferedImage workImage = mView.getImagesModel().getSrcImage();
-        workImage = SkeletonizationAlgorithms.execute(workImage);
-        mView.getImagesModel().setDstImage(workImage);
-        mView.repaint();
-        Time.stop(mView.getTimeLabel());
+        if(mainView.getImagesModel() != null) {
+            Time.start();
+            BufferedImage workImage = mainView.getImagesModel().getSrcImage();
+            workImage = SkeletonizationAlgorithms.execute(workImage);
+            mainView.getImagesModel().setDstImage(workImage);
+            mainView.repaint();
+            Time.stop(mainView.getTimeLabel());
+        }
     }
 }

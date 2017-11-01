@@ -16,9 +16,11 @@ public class ResetImageController implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         ImagesModel model = mainView.getImagesModel();
-        model.getOrginalImage().copyData(model.getDstImage().getRaster());
-        model.getOrginalImage().copyData(model.getSrcImage().getRaster());
-        mainView.setImagesModel(model);
-        mainView.repaint();
+        if(model != null) {
+            model.getOrginalImage().copyData(model.getDstImage().getRaster());
+            model.getOrginalImage().copyData(model.getSrcImage().getRaster());
+            mainView.setImagesModel(model);
+            mainView.repaint();
+        }
     }
 }

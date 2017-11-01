@@ -24,15 +24,17 @@ public class AdaptiveMedianController implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Time.start();
-        BufferedImage workImage = mainView.getImagesModel().getSrcImage();
-        AdaptiveMedianAlgorithms adaptiveFilters = new AdaptiveMedianAlgorithms();
-        int shapeMask = (adaptiveView.getSquareMaskRB().isSelected()) ? 1 : 2;
-        int sizeMax = adaptiveView.getRadiusMaxSlider().getValue()*2+1;
-        int sizeMin = adaptiveView.getRadiusMinSlider().getValue()*2+1;
-        workImage = adaptiveFilters.execute(sizeMin, sizeMax, shapeMask, workImage);
-        mainView.getImagesModel().setDstImage(workImage);
-        mainView.repaint();
-        Time.stop(mainView.getTimeLabel());
+        if(mainView.getImagesModel() != null) {
+            Time.start();
+            BufferedImage workImage = mainView.getImagesModel().getSrcImage();
+            AdaptiveMedianAlgorithms adaptiveFilters = new AdaptiveMedianAlgorithms();
+            int shapeMask = (adaptiveView.getSquareMaskRB().isSelected()) ? 1 : 2;
+            int sizeMax = adaptiveView.getRadiusMaxSlider().getValue() * 2 + 1;
+            int sizeMin = adaptiveView.getRadiusMinSlider().getValue() * 2 + 1;
+            workImage = adaptiveFilters.execute(sizeMin, sizeMax, shapeMask, workImage);
+            mainView.getImagesModel().setDstImage(workImage);
+            mainView.repaint();
+            Time.stop(mainView.getTimeLabel());
+        }
     }
 }

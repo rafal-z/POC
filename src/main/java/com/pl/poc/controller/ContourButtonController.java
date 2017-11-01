@@ -1,6 +1,7 @@
 package com.pl.poc.controller;
 
 import com.pl.poc.algorithm.ContourAlgorithms;
+import com.pl.poc.algorithm.Time;
 import com.pl.poc.view.ContourSettingsView;
 import com.pl.poc.view.MainView;
 
@@ -22,11 +23,15 @@ public class ContourButtonController implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        int[] mat = csView.getValuesWithTable();
-        JTable table = csView.getTable();
-        BufferedImage workImage = mainView.getImagesModel().getSrcImage();
-        workImage = ContourAlgorithms.execute(mat, table.getRowCount(), table.getColumnCount(), workImage);
-        mainView.getImagesModel().setDstImage(workImage);
-        mainView.repaint();
+        if(mainView.getImagesModel() != null) {
+            Time.start();
+            int[] mat = csView.getValuesWithTable();
+            JTable table = csView.getTable();
+            BufferedImage workImage = mainView.getImagesModel().getSrcImage();
+            workImage = ContourAlgorithms.execute(mat, table.getRowCount(), table.getColumnCount(), workImage);
+            mainView.getImagesModel().setDstImage(workImage);
+            mainView.repaint();
+            Time.stop(mainView.getTimeLabel());
+        }
     }
 }

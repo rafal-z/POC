@@ -21,12 +21,16 @@ public class UpdateController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         try
         {
-            mainView.getImagesModel().getDstImage().copyData(mainView.getImagesModel().getSrcImage().getRaster());
-            mainView.getImageIcon().setImage(mainView.getImagesModel().getDstImage());
-            mainView.getImageLabel().setIcon(mainView.getImageIcon());
+            if(mainView.getImagesModel() != null) {
+                mainView.getImagesModel().getDstImage().copyData(mainView.getImagesModel().getSrcImage().getRaster());
+                mainView.getImageIcon().setImage(mainView.getImagesModel().getDstImage());
+                mainView.getImageLabel().setIcon(mainView.getImageIcon());
+            }
 
             currentView.setVisible(false);
             currentView.dispose();
-        } catch (Exception ex) {}
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }

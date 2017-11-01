@@ -23,21 +23,22 @@ public class MedianFilterController implements ActionListener {
 
 
     public void actionPerformed(ActionEvent e) {
-        Time.start();
-        BufferedImage srcImage = mainView.getImagesModel().getSrcImage();
-        int[] mat;
-        int radius = medianFilterView.getRadiusSlider().getValue();
-        MedianFilterAlgorithms medianFilter = new MedianFilterAlgorithms();
+        if(mainView.getImagesModel() != null) {
+            Time.start();
+            BufferedImage srcImage = mainView.getImagesModel().getSrcImage();
+            int[] mat;
+            int radius = medianFilterView.getRadiusSlider().getValue();
+            MedianFilterAlgorithms medianFilter = new MedianFilterAlgorithms();
 
-        if(medianFilterView.getSquareMask().isSelected()) {
-            mat = medianFilter.makeSquareMask(radius*2+1, radius*2+1);
+            if (medianFilterView.getSquareMask().isSelected()) {
+                mat = medianFilter.makeSquareMask(radius * 2 + 1, radius * 2 + 1);
+            } else {
+                mat = medianFilter.makeRoundMask(radius * 2 + 1, radius * 2 + 1);
+            }
+            BufferedImage workImage = medianFilter.execute(srcImage, mat);
+            mainView.getImagesModel().setDstImage(workImage);
+            mainView.repaint();
+            Time.stop(mainView.getTimeLabel());
         }
-        else {
-            mat = medianFilter.makeRoundMask(radius*2+1, radius*2+1);
-        }
-        BufferedImage workImage = medianFilter.execute(srcImage, mat);
-        mainView.getImagesModel().setDstImage(workImage);
-        mainView.repaint();
-        Time.stop(mainView.getTimeLabel());
     }
 }

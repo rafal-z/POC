@@ -30,6 +30,8 @@ public class CancelController implements ActionListener {
 
             currentView.setVisible(false);
             currentView.dispose();
-        } catch (Exception ex) {}
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }

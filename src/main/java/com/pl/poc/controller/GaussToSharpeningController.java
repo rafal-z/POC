@@ -15,28 +15,28 @@ import java.awt.image.BufferedImage;
  * Created by Rafał on 2017-08-07.
  */
 public class GaussToSharpeningController implements ChangeListener {
-    private MainView mView;
+    private MainView mainView;
     private SharpeningSettingsView sharpView;
 
     public GaussToSharpeningController(MainView mainView, SharpeningSettingsView sharpeningSettingsView){
-        this.mView = mainView;
+        this.mainView = mainView;
         this.sharpView = sharpeningSettingsView;
     }
 
     public void stateChanged(ChangeEvent e) {
         JSlider slider = (JSlider) e.getSource();
         sharpView.getNumberGauss().setText(slider.getValue() + "");
-        if (!slider.getValueIsAdjusting() && mView.getImagesModel() != null) {
+        if (!slider.getValueIsAdjusting() && mainView.getImagesModel() != null) {
             Time.start();
 
-            BufferedImage srcImage = mView.getImagesModel().getSrcImage();
+            BufferedImage srcImage = mainView.getImagesModel().getSrcImage();
             BufferedImage gaussImage = GaussianBlurAlgorithms.execute(srcImage, slider.getValue());
-            mView.getImagesModel().setGaussImage(gaussImage);
+            mainView.getImagesModel().setGaussImage(gaussImage);
             BufferedImage dstImage = SharpeningAlgorithms.execute(srcImage, gaussImage, sharpView.getSharpeningSlider().getValue(), slider.getValue());
-            mView.getImagesModel().setDstImage(dstImage);
-            mView.repaint();
+            mainView.getImagesModel().setDstImage(dstImage);
+            mainView.repaint();
 
-            Time.stop(mView.getTimeLabel());
+            Time.stop(mainView.getTimeLabel());
         }
     }
 }

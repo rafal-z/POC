@@ -23,13 +23,15 @@ public class BilateralFilterController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Time.start();
-        BufferedImage workImage = mainView.getImagesModel().getSrcImage();
-        float distanceSigma = (float) bilateralView.getSigmaMinSpinner().getValue();
-        float intensitySigma = (float) bilateralView.getSigmaMaxSpinner().getValue();
-        workImage = new BilateralFilterAlgorithm().execute(workImage,distanceSigma,intensitySigma);
-        mainView.getImagesModel().setDstImage(workImage);
-        mainView.repaint();
-        Time.stop(mainView.getTimeLabel());
+        if(mainView.getImagesModel() != null) {
+            Time.start();
+            BufferedImage workImage = mainView.getImagesModel().getSrcImage();
+            float distanceSigma = (float) bilateralView.getSigmaMinSpinner().getValue();
+            float intensitySigma = (float) bilateralView.getSigmaMaxSpinner().getValue();
+            workImage = new BilateralFilterAlgorithm().execute(workImage, distanceSigma, intensitySigma);
+            mainView.getImagesModel().setDstImage(workImage);
+            mainView.repaint();
+            Time.stop(mainView.getTimeLabel());
+        }
     }
 }

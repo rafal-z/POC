@@ -24,23 +24,24 @@ public class OpeningFilterController implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        Time.start();
-        BufferedImage srcImage = mainView.getImagesModel().getSrcImage();
-        int[] mat;
-        int radius = openingFilterView.getRadiusSlider().getValue();
-        MaximumFilterAlgorithms maximumFilter = new MaximumFilterAlgorithms();
-        MinimumFilterAlgorithms minimumFilter = new MinimumFilterAlgorithms();
+        if(mainView.getImagesModel() != null) {
+            Time.start();
+            BufferedImage srcImage = mainView.getImagesModel().getSrcImage();
+            int[] mat;
+            int radius = openingFilterView.getRadiusSlider().getValue();
+            MaximumFilterAlgorithms maximumFilter = new MaximumFilterAlgorithms();
+            MinimumFilterAlgorithms minimumFilter = new MinimumFilterAlgorithms();
 
-        if(openingFilterView.getSquareMask().isSelected()) {
-            mat = NonlinearFilters.makeSquareMask(radius*2+1, radius*2+1);
+            if (openingFilterView.getSquareMask().isSelected()) {
+                mat = NonlinearFilters.makeSquareMask(radius * 2 + 1, radius * 2 + 1);
+            } else {
+                mat = NonlinearFilters.makeRoundMask(radius * 2 + 1, radius * 2 + 1);
+            }
+            BufferedImage workImage = maximumFilter.execute(srcImage, mat);
+            workImage = minimumFilter.execute(workImage, mat);
+            mainView.getImagesModel().setDstImage(workImage);
+            mainView.repaint();
+            Time.stop(mainView.getTimeLabel());
         }
-        else {
-            mat = NonlinearFilters.makeRoundMask(radius*2+1, radius*2+1);
-        }
-        BufferedImage workImage = maximumFilter.execute(srcImage, mat);
-        workImage = minimumFilter.execute(workImage, mat);
-        mainView.getImagesModel().setDstImage(workImage);
-        mainView.repaint();
-        Time.stop(mainView.getTimeLabel());
     }
 }
