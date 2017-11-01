@@ -30,6 +30,6 @@ public class BilateralFilterController implements ActionListener {
         workImage = new BilateralFilterAlgorithm().execute(workImage,distanceSigma,intensitySigma);
         mainView.getImagesModel().setDstImage(workImage);
         mainView.repaint();
-        Time.stop();
+        Time.stop(mainView.getTimeLabel());
     }
 }

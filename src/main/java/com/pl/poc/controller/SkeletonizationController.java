@@ -24,6 +24,6 @@ public class SkeletonizationController implements ActionListener {
         workImage = SkeletonizationAlgorithms.execute(workImage);
         mView.getImagesModel().setDstImage(workImage);
         mView.repaint();
-        Time.stop();
+        Time.stop(mView.getTimeLabel());
     }
 }

@@ -41,7 +41,7 @@ public class SharpeningController implements ChangeListener{
             mView.getImagesModel().setDstImage(dstImage);
             mView.repaint();
 
-            Time.stop();
+            Time.stop(mView.getTimeLabel());
         }
     }
 }

@@ -21,6 +21,7 @@ public class MainView extends JFrame{
     private JMenuItem mitem;
     private JMenu morphologyMenu;
     private JMenu nonlinearMenu;
+    private JLabel timeLabel;
 
     private ImagesModel imagesModel;
 
@@ -245,6 +246,9 @@ public class MainView extends JFrame{
 
         imageLabel = new JLabel();
         add(new JScrollPane(imageLabel));
+
+        timeLabel = new JLabel(" ");
+        add(timeLabel, BorderLayout.SOUTH);
     }
 
     public JLabel getImageLabel() {
@@ -269,5 +273,13 @@ public class MainView extends JFrame{
 
     public void setImagesModel(ImagesModel imagesModel) {
         this.imagesModel = imagesModel;
+    }
+
+    public JLabel getTimeLabel() {
+        return timeLabel;
+    }
+
+    public void setTimeLabel(JLabel timeLabel) {
+        this.timeLabel = timeLabel;
     }
 }

@@ -33,6 +33,6 @@ public class CannyEdgeController implements ActionListener{
         mainView.getImagesModel().setDstImage(workImage);
         mainView.repaint();
 
-        Time.stop();
+        Time.stop(mainView.getTimeLabel());
     }
 }

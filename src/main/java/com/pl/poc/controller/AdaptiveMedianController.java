@@ -33,6 +33,6 @@ public class AdaptiveMedianController implements ActionListener{
         workImage = adaptiveFilters.execute(sizeMin, sizeMax, shapeMask, workImage);
         mainView.getImagesModel().setDstImage(workImage);
         mainView.repaint();
-        Time.stop();
+        Time.stop(mainView.getTimeLabel());
     }
 }

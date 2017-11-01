@@ -41,6 +41,6 @@ public class OpeningFilterController implements ActionListener {
         workImage = minimumFilter.execute(workImage, mat);
         mainView.getImagesModel().setDstImage(workImage);
         mainView.repaint();
-        Time.stop();
+        Time.stop(mainView.getTimeLabel());
     }
 }

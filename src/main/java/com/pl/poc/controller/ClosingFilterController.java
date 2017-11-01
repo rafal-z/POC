@@ -42,6 +42,6 @@ public class ClosingFilterController implements ActionListener {
         workImage = maximumFilter.execute(workImage, mat);
         mainView.getImagesModel().setDstImage(workImage);
         mainView.repaint();
-        Time.stop();
+        Time.stop(mainView.getTimeLabel());
     }
 }

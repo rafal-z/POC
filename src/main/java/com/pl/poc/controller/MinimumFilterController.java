@@ -37,6 +37,6 @@ public class MinimumFilterController implements ActionListener {
         BufferedImage workImage = minimumFilter.execute(srcImage, mat);
         mainView.getImagesModel().setDstImage(workImage);
         mainView.repaint();
-        Time.stop();
+        Time.stop(mainView.getTimeLabel());
     }
 }

@@ -35,7 +35,7 @@ public class GaussController implements ChangeListener {
             mView.getImagesModel().setDstImage(destImage);
             mView.repaint();
 
-            Time.stop();
+            Time.stop(mView.getTimeLabel());
         }
     }
 }

@@ -37,6 +37,6 @@ public class MaximumFilterController implements ActionListener {
         BufferedImage workImage = maximumFilter.execute(srcImage, mat);
         mainView.getImagesModel().setDstImage(workImage);
         mainView.repaint();
-        Time.stop();
+        Time.stop(mainView.getTimeLabel());
     }
 }

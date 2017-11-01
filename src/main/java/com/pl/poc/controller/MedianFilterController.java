@@ -38,6 +38,6 @@ public class MedianFilterController implements ActionListener {
         BufferedImage workImage = medianFilter.execute(srcImage, mat);
         mainView.getImagesModel().setDstImage(workImage);
         mainView.repaint();
-        Time.stop();
+        Time.stop(mainView.getTimeLabel());
     }
 }
