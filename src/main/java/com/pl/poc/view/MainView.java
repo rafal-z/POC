@@ -74,6 +74,10 @@ public class MainView extends JFrame{
         mitem.addActionListener(new ResetImageController(this));
         menu.add(mitem);
 
+        mitem = new JMenuItem("Save");
+        mitem.addActionListener(new SaveImageController(this));
+        menu.add(mitem);
+
         menu.addSeparator();
 
         mitem = new JMenuItem("Exit");
