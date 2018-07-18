@@ -28,14 +28,10 @@ public class BrightnessSettingsView extends JFrame {
 
     public BrightnessSettingsView(MainView mainView)
     {
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
         this.mainView = mainView;
         initComponents();
     }
 
-
-//    @SuppressWarnings("unchecked")
     private void initComponents() {
 
         brightnessSlider = new JSlider();
@@ -43,7 +39,7 @@ public class BrightnessSettingsView extends JFrame {
         cancelButton = new JButton();
         okButton = new JButton();
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setTitle("Brightness...");
         setMinimumSize(new Dimension(300, 100));
         setPreferredSize(new Dimension(380, 120));

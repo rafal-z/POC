@@ -6,13 +6,17 @@ import java.awt.image.BufferedImage;
  * Created by Rafał on 2017-07-15.
  */
 public class ImagesModel {
-    private BufferedImage orginalImage;
     private BufferedImage srcImage;
     private BufferedImage dstImage;
+    private BufferedImage orginalImage;
+    private BufferedImage gaussImage;
 
     public ImagesModel(BufferedImage src, BufferedImage dsc){
         this.srcImage = src;
         this.dstImage = dsc;
+
+        this.orginalImage = new BufferedImage(src.getWidth(), src.getHeight(), BufferedImage.TYPE_INT_RGB);
+        src.copyData(this.orginalImage.getRaster());
     }
 
     public BufferedImage getSrcImage() {
@@ -37,5 +41,13 @@ public class ImagesModel {
 
     public void setOrginalImage(BufferedImage orginalImage) {
         this.orginalImage = orginalImage;
+    }
+
+    public BufferedImage getGaussImage() {
+        return gaussImage;
+    }
+
+    public void setGaussImage(BufferedImage gaussImage) {
+        this.gaussImage = gaussImage;
     }
 }

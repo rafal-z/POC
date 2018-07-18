@@ -14,11 +14,11 @@ import java.awt.image.DataBufferInt;
  * Created by Rafał on 2017-07-15.
  */
 public class BrightnessController implements ChangeListener {
-    private MainView mView;
+    private MainView mainView;
     private BrightnessSettingsView bsView;
 
     public BrightnessController(MainView mainView, BrightnessSettingsView bs){
-        this.mView = mainView;
+        this.mainView = mainView;
         this.bsView = bs;
     }
 
@@ -27,8 +27,10 @@ public class BrightnessController implements ChangeListener {
         bsView.getSpiner().setValue(slider.getValue());
         try
         {
-            processImage(mView.getImagesModel().getSrcImage(), mView.getImagesModel().getDstImage(), slider.getValue());
-            mView.repaint();
+            if(mainView.getImagesModel() != null) {
+                processImage(mainView.getImagesModel().getSrcImage(), mainView.getImagesModel().getDstImage(), slider.getValue());
+                mainView.repaint();
+            }
         }
         catch (Exception ex)
         {
